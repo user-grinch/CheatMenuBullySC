@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31825.309
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CheatMenuBullySC.vcxproj", "CheatMenuBullySC\CheatMenuBullySC.vcxproj.vcxproj", "{33F8F43C-CEC2-4C95-A527-4A759F7492FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33F8F43C-CEC2-4C95-A527-4A759F7492FE}.Debug|x86.ActiveCfg = Debug|Win32
+		{33F8F43C-CEC2-4C95-A527-4A759F7492FE}.Debug|x86.Build.0 = Debug|Win32
+		{33F8F43C-CEC2-4C95-A527-4A759F7492FE}.Release|x86.ActiveCfg = Release|Win32
+		{33F8F43C-CEC2-4C95-A527-4A759F7492FE}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DDFEDE19-5424-4E48-AFB5-3D25AF137C22}
+	EndGlobalSection
+EndGlobal
