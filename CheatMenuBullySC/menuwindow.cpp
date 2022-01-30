@@ -108,10 +108,10 @@ void MenuWindow::TeleportTab()
 				{
 					try
 					{
-                     /*   CVector pos;
+                        CVector pos;
 						sscanf(m_nInputBuffer, "%f,%f,%f", &pos.x, &pos.y, &pos.z);
 						pos.z += 1.0f;
-                        CWorld::GetInstance()->pPlayer->Position = pos;*/
+                        playerPos = pos;
                         NotifiyPopup::AddToQueue("Teleported to coordinate");
 					}
 					catch (...)
@@ -123,11 +123,9 @@ void MenuWindow::TeleportTab()
 
 				if (ImGui::Button("Insert Coordinates", Ui::GetSize(2)))
 				{
-                   /* CVector pos = CWorld::GetInstance()->pPlayer->Position;
-
                     strcpy(m_nInputBuffer,
-                        (std::to_string(static_cast<int>(pos.x)) + ", " + std::to_string(static_cast<int>(pos.y)) +
-                            ", " + std::to_string(static_cast<int>(pos.z))).c_str());*/
+                        (std::to_string(static_cast<int>(playerPos.x)) + ", " + std::to_string(static_cast<int>(playerPos.y)) +
+                            ", " + std::to_string(static_cast<int>(playerPos.z))).c_str());
 				}
 
 				ImGui::EndChild();
@@ -143,8 +141,7 @@ void MenuWindow::TeleportTab()
                 {
                     try
                     {
-                        //CVector &pos = CWorld::GetInstance()->pPlayer->Position;
-                        //sscanf(loc.c_str(), "%f,%f,%f", &pos.x, &pos.y, &pos.z);
+                        sscanf(loc.c_str(), "%f,%f,%f", &playerPos.x, &playerPos.y, &playerPos.z);
                     }
                     catch (...)
                     {
@@ -266,13 +263,14 @@ inline void _declspec(naked) godModePatch()
         cmp ecx, [0xC1AEA8] 
         jne func
         ret 4
+        jmp ret2
 
         func:
-     /*   func:
             push ebx
             mov ebx, ecx
             fld dword ptr[ebx + 0x1CB8]
-            retn*/
+        
+        ret2:
     }
 }
 
@@ -299,7 +297,7 @@ void MenuWindow::CheatsTab()
         if (godMode)
         {
             injector::MakeCALL(0x4783F0, &godModePatch);
-            injector::WriteMemoryRaw(0x4783F5, (void*)"\xC2\x04\x00\x90", 4, true);
+            injector::MakeNOP(0x4783F5, 4);
         }
         else
         {

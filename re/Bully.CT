@@ -1,0 +1,3045 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>9</ID>
+      <Description>"Cheats Menu (Uncheck box to deactivate all cheats within)"</Description>
+      <Options moDeactivateChildrenAsWell="1"/>
+      <LastState Value="" RealAddress="00000000"/>
+      <GroupHeader>1</GroupHeader>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>209</ID>
+          <Description>"Invincibility"</Description>
+          <Options moDeactivateChildrenAsWell="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(Invincibility,Bully.exe,53 8B D9 D9 83 B8 1C 00 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+  cmp ecx,[Bully.exe+81AEA8]
+  jne code
+  ret 4
+
+code:
+  push ebx
+  mov ebx,ecx
+  fld dword ptr [ebx+00001CB8]
+  jmp return
+
+Invincibility:
+  jmp newmem
+  nop 4
+return:
+registersymbol(Invincibility)
+
+[DISABLE]
+
+Invincibility:
+  db 53 8B D9 D9 83 B8 1C 00 00
+
+unregistersymbol(Invincibility)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Invincibility
+
+Bully.exe+783E6: CC                 - int 3 
+Bully.exe+783E7: CC                 - int 3 
+Bully.exe+783E8: CC                 - int 3 
+Bully.exe+783E9: CC                 - int 3 
+Bully.exe+783EA: CC                 - int 3 
+Bully.exe+783EB: CC                 - int 3 
+Bully.exe+783EC: CC                 - int 3 
+Bully.exe+783ED: CC                 - int 3 
+Bully.exe+783EE: CC                 - int 3 
+Bully.exe+783EF: CC                 - int 3 
+// ---------- INJECTING HERE ----------
+Invincibility: 53                 - push ebx
+// ---------- DONE INJECTING  ----------
+Bully.exe+783F1: 8B D9              - mov ebx,ecx
+Bully.exe+783F3: D9 83 B8 1C 00 00  - fld dword ptr [ebx+00001CB8]
+Bully.exe+783F9: D8 64 24 08        - fsub dword ptr [esp+08]
+Bully.exe+783FD: D9 5C 24 08        - fstp dword ptr [esp+08]
+Bully.exe+78401: D9 44 24 08        - fld dword ptr [esp+08]
+Bully.exe+78405: D9 93 B8 1C 00 00  - fst dword ptr [ebx+00001CB8]
+Bully.exe+7840B: D9 EE              - fldz 
+Bully.exe+7840D: D8 D1              - fcom st(0),st(1)
+Bully.exe+7840F: DF E0              - fnstsw ax
+Bully.exe+78411: DD D9              - fstp st(1)
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>211</ID>
+          <Description>"Super Damage"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(SuperDmg,Bully.exe,D9 93 B8 1C 00 00 D9 EE D8) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(DmgVal)
+
+newmem:
+  cmp edi,[Bully.exe+81AEA8]
+  jne code
+  movss xmm0,[ebx+00001CB8]
+  subss xmm0,[DmgVal]
+  movss [ebx+00001CB8],xmm0
+  jmp return
+
+code:
+  fst dword ptr [ebx+00001CB8]
+  jmp return
+
+DmgVal:
+  dd (float)200
+
+SuperDmg:
+  jmp newmem
+  nop
+return:
+registersymbol(SuperDmg)
+
+[DISABLE]
+
+SuperDmg:
+  db D9 93 B8 1C 00 00
+
+unregistersymbol(SuperDmg)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+78405
+
+Bully.exe+783EC: CC                 - int 3 
+Bully.exe+783ED: CC                 - int 3 
+Bully.exe+783EE: CC                 - int 3 
+Bully.exe+783EF: CC                 - int 3 
+health22: 53                 - push ebx
+Bully.exe+783F1: 8B D9              - mov ebx,ecx
+Bully.exe+783F3: D9 83 B8 1C 00 00  - fld dword ptr [ebx+00001CB8]
+Bully.exe+783F9: D8 64 24 08        - fsub dword ptr [esp+08]
+Bully.exe+783FD: D9 5C 24 08        - fstp dword ptr [esp+08]
+Bully.exe+78401: D9 44 24 08        - fld dword ptr [esp+08]
+// ---------- INJECTING HERE ----------
+Bully.exe+78405: D9 93 B8 1C 00 00  - fst dword ptr [ebx+00001CB8]
+// ---------- DONE INJECTING  ----------
+Bully.exe+7840B: D9 EE              - fldz 
+Bully.exe+7840D: D8 D1              - fcom st(0),st(1)
+Bully.exe+7840F: DF E0              - fnstsw ax
+Bully.exe+78411: DD D9              - fstp st(1)
+Bully.exe+78413: F6 C4 41           - test ah,41
+Bully.exe+78416: 75 06              - jne Bully.exe+7841E
+Bully.exe+78418: D9 93 B8 1C 00 00  - fst dword ptr [ebx+00001CB8]
+Bully.exe+7841E: D9 83 B8 1C 00 00  - fld dword ptr [ebx+00001CB8]
+Bully.exe+78424: D9 83 A8 1C 00 00  - fld dword ptr [ebx+00001CA8]
+Bully.exe+7842A: DE D9              - fcompp 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"Unlimited Ammo"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version:
+  Date   : 2020-07-25
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(ammo1,Bully.exe,66 89 06 0F 84 83 00 00 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(ammoVal)
+registersymbol(ammoVal)
+
+newmem:
+
+code:
+  mov [ammoVal],esi
+  mov ax,#30
+  mov [esi],ax
+  je Bully.exe+5CAC6
+  jmp return
+
+ammoVal:
+  dd 0
+
+ammo1:
+  jmp newmem
+  nop 4
+return:
+registersymbol(ammo1)
+
+[DISABLE]
+
+ammo1:
+  db 66 89 06 0F 84 83 00 00 00
+
+unregistersymbol(ammo1)
+unregistersymbol(ammoVal)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Bully.exe"+5CA3A
+
+"Bully.exe"+5CA1D: F6 C4 05              -  test ah,05
+"Bully.exe"+5CA20: 7A 04                 -  jp Bully.exe+5CA26
+"Bully.exe"+5CA22: DD D9                 -  fstp st(1)
+"Bully.exe"+5CA24: EB 02                 -  jmp Bully.exe+5CA28
+"Bully.exe"+5CA26: DD D8                 -  fstp st(0)
+"Bully.exe"+5CA28: D9 5C 24 10           -  fstp dword ptr [esp+10]
+"Bully.exe"+5CA2C: D9 44 24 10           -  fld dword ptr [esp+10]
+"Bully.exe"+5CA30: E8 EB FC 3F 00        -  call Bully.exe+45C720
+"Bully.exe"+5CA35: 8B 4E 24              -  mov ecx,[esi+24]
+"Bully.exe"+5CA38: 85 C9                 -  test ecx,ecx
+// ---------- INJECTING HERE ----------
+"Bully.exe"+5CA3A: 66 89 06              -  mov [esi],ax
+"Bully.exe"+5CA3D: 0F 84 83 00 00 00     -  je Bully.exe+5CAC6
+// ---------- DONE INJECTING  ----------
+"Bully.exe"+5CA43: 8B 49 04              -  mov ecx,[ecx+04]
+"Bully.exe"+5CA46: 85 C9                 -  test ecx,ecx
+"Bully.exe"+5CA48: 74 7C                 -  je Bully.exe+5CAC6
+"Bully.exe"+5CA4A: 83 B9 10 13 00 00 0D  -  cmp dword ptr [ecx+00001310],0D
+"Bully.exe"+5CA51: 75 73                 -  jne Bully.exe+5CAC6
+"Bully.exe"+5CA53: 0F BF C0              -  movsx eax,ax
+"Bully.exe"+5CA56: 2B C7                 -  sub eax,edi
+"Bully.exe"+5CA58: 85 C0                 -  test eax,eax
+"Bully.exe"+5CA5A: 7E 3E                 -  jle Bully.exe+5CA9A
+"Bully.exe"+5CA5C: 0F BF 4E 02           -  movsx ecx,word ptr [esi+02]
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>127</ID>
+              <Description>"Ammo"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>[ammoVal]+0</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>166</ID>
+          <Description>"Get Weapon script"</Description>
+          <Options moHideChildren="1"/>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(weapons22,Bully.exe,89 BE 2C 01 00 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(weapons2a)
+label(weapons2b)
+registersymbol(weapons2a)
+registersymbol(weapons2b)
+
+newmem:
+  push [weapons2b]       //weapons in dropdown box
+  pop [weapons2b]
+  mov [weapons2a],esi    //injection copy shows ID for current weapon holding
+
+code:
+  mov [esi+0000012C],edi
+  jmp return
+
+weapons2a:
+  dd 0
+weapons2b:
+  dd #4294967295
+
+weapons22:
+  jmp newmem
+  nop
+return:
+registersymbol(weapons22)
+
+[DISABLE]
+
+weapons22:
+  db 89 BE 2C 01 00 00
+
+unregistersymbol(weapons22)
+unregistersymbol(weapons2a)
+unregistersymbol(weapons2b)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+DA87A
+
+Bully.exe+DA85A: 75 05                          - jne Bully.exe+DA861
+Bully.exe+DA85C: 83 CF FF                       - or edi,-01
+Bully.exe+DA85F: EB 0B                          - jmp Bully.exe+DA86C
+Bully.exe+DA861: 6A 00                          - push 00
+Bully.exe+DA863: 57                             - push edi
+Bully.exe+DA864: E8 17 FE FF FF                 - call Bully.exe+DA680
+Bully.exe+DA869: 83 C4 08                       - add esp,08
+Bully.exe+DA86C: D9 EE                          - fldz 
+Bully.exe+DA86E: 8D 8E 6C 02 00 00              - lea ecx,[esi+0000026C]
+Bully.exe+DA874: D9 9E 28 01 00 00              - fstp dword ptr [esi+00000128]
+// ---------- INJECTING HERE ----------
+Bully.exe+DA87A: 89 BE 2C 01 00 00              - mov [esi+0000012C],edi
+// ---------- DONE INJECTING  ----------
+Bully.exe+DA880: D9 05 AC 09 90 00              - fld dword ptr [Bully.exe+5009AC]
+Bully.exe+DA886: C7 86 40 01 00 00 00 00 00 00  - mov [esi+00000140],00000000
+Bully.exe+DA890: D9 96 20 01 00 00              - fst dword ptr [esi+00000120]
+Bully.exe+DA896: D9 9E 24 01 00 00              - fstp dword ptr [esi+00000124]
+Bully.exe+DA89C: E8 CF E4 00 00                 - call Bully.exe+E8D70
+Bully.exe+DA8A1: 8B 44 24 10                    - mov eax,[esp+10]
+Bully.exe+DA8A5: 57                             - push edi
+Bully.exe+DA8A6: 89 86 68 02 00 00              - mov [esi+00000268],eax
+Bully.exe+DA8AC: E8 9F 0B 04 00                 - call Bully.exe+11B450
+Bully.exe+DA8B1: 83 C4 04                       - add esp,04
+}
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>167</ID>
+              <Description>"ID for Weapon currently holding"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>[weapons2a]+12C</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>227</ID>
+              <Description>"Select weapon you want to get from dropdown list"</Description>
+              <DropDownList ReadOnly="1" DescriptionOnly="1" DisplayValueAsItem="1">4294967295:Fist
+437:Skateboard
+420:Flashlight
+394:Itching Powder
+349:Bag of Marbles
+325:Rubber Band Ball
+328:Camera
+426:Digital Camera
+321:Spray Paint
+320:Newspaper
+312:Carton of Eggs
+309:Stink Bombs
+308:Bottle Rocket Launcher
+322:Super Slingshot
+316:Spud Gun
+304:Slingshot
+301:Firecrackers
+</DropDownList>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>weapons2b</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>163</ID>
+              <Description>"Give/Call Weapon (Alt+Numpad 1)"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+createthread(newmem)
+registersymbol(newmem)
+
+newmem:
+mov ecx,[[Bully.exe+83CE14]+1C4]
+push 0
+push BDE18701
+push #50  // Ammo
+push [weapons2b] // Weapon ID
+call Bully.exe+5D030
+ret 10  // cleans the stack
+
+[DISABLE]
+unregistersymbol(newmem)
+dealloc(newmem)
+
+// __thiscall
+// stack - Bully.exe+44D4B      - 0000013C,00000008,BDE18701,00000000,...
+
+{
+---------WEAPON IDs----------
+The following are 4 byte values:
+
+Fist - 4294967295
+Skateboard - 437
+Flashlight - 420
+Itching Powder - 394
+Bag of Marbles - 349
+Rubber Band Ball - 325
+Camera - 328
+Digital Camera - 426
+Spray Paint - 321
+Newspaper - 320
+Carton of Eggs - 312
+Stink Bombs - 309
+Bottle Rocket Launcher - 308
+Super Slingshot - 322
+Spud Gun - 316
+Slingshot - 304
+Firecrackers - 301
+
+}
+</AssemblerScript>
+              <Hotkeys>
+                <Hotkey>
+                  <Action>Toggle Activation</Action>
+                  <Keys>
+                    <Key>18</Key>
+                    <Key>97</Key>
+                  </Keys>
+                  <ID>0</ID>
+                </Hotkey>
+              </Hotkeys>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>2</ID>
+          <Description>"Max Money (Pause game, go to inventory to get)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version:
+  Date   : 2020-07-26
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(money2,Bully.exe,8B 91 A0 1C 00 00) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+
+code:
+  mov [ecx+00001CA0],#99999999
+  mov edx,[ecx+00001CA0]
+  jmp return
+
+money2:
+  jmp newmem
+  nop
+return:
+registersymbol(money2)
+
+[DISABLE]
+
+money2:
+  db 8B 91 A0 1C 00 00
+
+unregistersymbol(money2)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Bully.exe"+2953EF
+
+"Bully.exe"+2953CF: 50                    -  push eax
+"Bully.exe"+2953D0: 8B CE                 -  mov ecx,esi
+"Bully.exe"+2953D2: E8 19 F9 FF FF        -  call Bully.exe+294CF0
+"Bully.exe"+2953D7: E8 84 3A FF FF        -  call Bully.exe+288E60
+"Bully.exe"+2953DC: 6A 01                 -  push 01
+"Bully.exe"+2953DE: 6A 01                 -  push 01
+"Bully.exe"+2953E0: 6A 02                 -  push 02
+"Bully.exe"+2953E2: 6A 03                 -  push 03
+"Bully.exe"+2953E4: E8 D7 EB 00 00        -  call Bully.exe+2A3FC0
+"Bully.exe"+2953E9: 8B 0D A8 AE C1 00     -  mov ecx,[Bully.exe+81AEA8]
+// ---------- INJECTING HERE ----------
+"Bully.exe"+2953EF: 8B 91 A0 1C 00 00     -  mov edx,[ecx+00001CA0]
+// ---------- DONE INJECTING  ----------
+"Bully.exe"+2953F5: DB 81 A0 1C 00 00     -  fild dword ptr [ecx+00001CA0]
+"Bully.exe"+2953FB: 85 D2                 -  test edx,edx
+"Bully.exe"+2953FD: 7D 06                 -  jnl Bully.exe+295405
+"Bully.exe"+2953FF: D8 05 C8 0A 90 00     -  fadd dword ptr [Bully.exe+500AC8]
+"Bully.exe"+295405: 83 C4 0C              -  add esp,0C
+"Bully.exe"+295408: D9 1C 24              -  fstp dword ptr [esp]
+"Bully.exe"+29540B: E8 C0 2C FF FF        -  call Bully.exe+2880D0
+"Bully.exe"+295410: 83 C4 04              -  add esp,04
+"Bully.exe"+295413: 6A 20                 -  push 20
+"Bully.exe"+295415: 68 BC 68 90 00        -  push Bully.exe+5068BC
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>3</ID>
+          <Description>"Max Tickets (Pause game, go to inventory to your tickets to get)"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version:
+  Date   : 2020-07-26
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(tickets2,Bully.exe,8B 04 85 60 00 CF 00 C3 33) // should be unique
+alloc(newmem,$1000)
+
+label(code)
+label(return)
+
+newmem:
+  cmp [ebx+CC],0
+  jne code
+  mov [eax*4+Bully.exe+8F0060],#9999
+  mov eax,[eax*4+Bully.exe+8F0060]
+  jmp return
+
+code:
+  mov eax,[eax*4+Bully.exe+8F0060]
+  jmp return
+
+tickets2:
+  jmp newmem
+  nop 2
+return:
+registersymbol(tickets2)
+
+[DISABLE]
+
+tickets2:
+  db 8B 04 85 60 00 CF 00
+
+unregistersymbol(tickets2)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Bully.exe"+141E27
+
+"Bully.exe"+141E09: 2B 05 B8 36 A1 00     -  sub eax,[Bully.exe+6136B8]
+"Bully.exe"+141E0F: 83 F8 4F              -  cmp eax,4F
+"Bully.exe"+141E12: 76 0A                 -  jna Bully.exe+141E1E
+"Bully.exe"+141E14: 33 C0                 -  xor eax,eax
+"Bully.exe"+141E16: 8B 04 85 60 00 CF 00  -  mov eax,[eax*4+Bully.exe+8F0060]
+"Bully.exe"+141E1D: C3                    -  ret
+"Bully.exe"+141E1E: 85 C0                 -  test eax,eax
+"Bully.exe"+141E20: 7C 0D                 -  jl Bully.exe+141E2F
+"Bully.exe"+141E22: 83 F8 50              -  cmp eax,50
+"Bully.exe"+141E25: 7D 08                 -  jnl Bully.exe+141E2F
+// ---------- INJECTING HERE ----------
+"Bully.exe"+141E27: 8B 04 85 60 00 CF 00  -  mov eax,[eax*4+Bully.exe+8F0060]
+// ---------- DONE INJECTING  ----------
+"Bully.exe"+141E2E: C3                    -  ret
+"Bully.exe"+141E2F: 33 C0                 -  xor eax,eax
+"Bully.exe"+141E31: C3                    -  ret
+"Bully.exe"+141E32: CC                    -  int 3
+"Bully.exe"+141E33: CC                    -  int 3
+"Bully.exe"+141E34: CC                    -  int 3
+"Bully.exe"+141E35: CC                    -  int 3
+"Bully.exe"+141E36: CC                    -  int 3
+"Bully.exe"+141E37: CC                    -  int 3
+"Bully.exe"+141E38: CC                    -  int 3
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>219</ID>
+          <Description>"Trouble Meter doesn't increase / Cops, Prefects etc. can't bust you"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-09
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(trouble2,Bully.exe,8B B5 40 1D 00 00) // should be unique
+alloc(newmema,$1000)
+label(codea)
+label(returna)
+
+aobscanmodule(trouble1,Bully.exe,89 8E 40 1D 00 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+//--------accessing instruction-----------//
+
+newmema:
+
+codea:
+  mov [ebp+00001D40],0
+  mov esi,[ebp+00001D40]
+  jmp returna
+
+trouble2:
+  jmp newmema
+  nop
+returna:
+registersymbol(trouble2)
+
+//--------writing instruction-----------//
+
+newmem:
+
+code:
+  mov ecx,0
+  mov [esi+00001D40],ecx
+  jmp return
+
+trouble1:
+  jmp newmem
+  nop
+return:
+registersymbol(trouble1)
+
+[DISABLE]
+
+trouble2:
+  db 8B B5 40 1D 00 00
+
+unregistersymbol(trouble2)
+dealloc(newmema)
+
+trouble1:
+  db 89 8E 40 1D 00 00
+
+unregistersymbol(trouble1)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+77593
+
+Bully.exe+7756F: 83 BE 10 13 00 00 0D  - cmp dword ptr [esi+00001310],0D
+Bully.exe+77576: 75 21                 - jne Bully.exe+77599
+Bully.exe+77578: 8B 0D A8 AE C1 00     - mov ecx,[Bully.exe+81AEA8]
+Bully.exe+7757E: E8 BD 32 02 00        - call Bully.exe+9A840
+Bully.exe+77583: 8B 8E 40 1D 00 00     - mov ecx,[esi+00001D40]
+Bully.exe+77589: 8B C7                 - mov eax,edi
+Bully.exe+7758B: 2B C1                 - sub eax,ecx
+Bully.exe+7758D: 85 C0                 - test eax,eax
+Bully.exe+7758F: 7E 08                 - jle Bully.exe+77599
+Bully.exe+77591: 03 C8                 - add ecx,eax
+// ---------- INJECTING HERE ----------
+Bully.exe+77593: 89 8E 40 1D 00 00     - mov [esi+00001D40],ecx
+// ---------- DONE INJECTING  ----------
+Bully.exe+77599: 8B 0D 8C F7 C0 00     - mov ecx,[Bully.exe+80F78C]
+Bully.exe+7759F: 3B 79 34              - cmp edi,[ecx+34]
+Bully.exe+775A2: B8 88 13 00 00        - mov eax,00001388
+Bully.exe+775A7: 7E 05                 - jle Bully.exe+775AE
+Bully.exe+775A9: B8 30 75 00 00        - mov eax,00007530
+Bully.exe+775AE: 8B 0D B4 A9 C1 00     - mov ecx,[Bully.exe+81A9B4]
+Bully.exe+775B4: 03 C8                 - add ecx,eax
+Bully.exe+775B6: 89 8E 48 1D 00 00     - mov [esi+00001D48],ecx
+Bully.exe+775BC: 5F                    - pop edi
+Bully.exe+775BD: 5E                    - pop esi
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>13</ID>
+          <Description>"Teleport"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>12</ID>
+              <Description>"Get Coordinates"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2020-09-07
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(PlayerCoordinates,Bully.exe,8B 40 08 83 7C 24 38 10) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(newmem2)
+label(playerCoords)
+label(xpos)
+label(zpos)
+label(ypos)
+label(save)
+label(load)
+label(enable_save)
+label(enable_load)
+label(yincrease)
+
+label(xpos2)
+label(zpos2)
+label(ypos2)
+label(save2)
+label(load2)
+label(enable_save2)
+label(enable_load2)
+
+label(xpos3)
+label(zpos3)
+label(ypos3)
+label(save3)
+label(load3)
+label(enable_save3)
+label(enable_load3)
+
+label(xpos4)
+label(zpos4)
+label(ypos4)
+label(save4)
+label(load4)
+label(enable_save4)
+label(enable_load4)
+
+registersymbol(PlayerCoordinates)
+registersymbol(playerCoords)
+registersymbol(xpos)
+registersymbol(zpos)
+registersymbol(ypos)
+registersymbol(enable_save)
+registersymbol(enable_load)
+
+registersymbol(xpos2)
+registersymbol(zpos2)
+registersymbol(ypos2)
+registersymbol(enable_save2)
+registersymbol(enable_load2)
+
+registersymbol(xpos3)
+registersymbol(zpos3)
+registersymbol(ypos3)
+registersymbol(enable_save3)
+registersymbol(enable_load3)
+
+registersymbol(xpos4)
+registersymbol(zpos4)
+registersymbol(ypos4)
+registersymbol(enable_save4)
+registersymbol(enable_load4)
+
+newmem:
+playerCoords:
+  dd 0
+xpos:
+  dd 0
+zpos:
+  dd 0
+ypos:
+  dd 0
+enable_save:
+  dd 0
+enable_load:
+  dd 0
+yincrease:
+  dd (float)50
+
+xpos2:
+  dd 0
+zpos2:
+  dd 0
+ypos2:
+  dd 0
+enable_save2:
+  dd 0
+enable_load2:
+  dd 0
+
+xpos3:
+  dd 0
+zpos3:
+  dd 0
+ypos3:
+  dd 0
+enable_save3:
+  dd 0
+enable_load3:
+  dd 0
+
+xpos4:
+  dd 0
+zpos4:
+  dd 0
+ypos4:
+  dd 0
+enable_save4:
+  dd 0
+enable_load4:
+  dd 0
+
+newmem2:
+  cmp [enable_save],1
+  je save
+  cmp [enable_load],1
+  je load
+
+  cmp [enable_save2],1
+  je save2
+  cmp [enable_load2],1
+  je load2
+
+  cmp [enable_save3],1
+  je save3
+  cmp [enable_load3],1
+  je load3
+
+  cmp [enable_save4],1
+  je save4
+  cmp [enable_load4],1
+  je load4
+
+  push ebx
+  lea ebx,[eax+0]
+  mov [playerCoords],ebx
+  pop ebx
+  jmp code
+
+save:
+  mov byte ptr [enable_save],0
+  push ebx
+  mov ebx,[eax+0]
+  mov [xpos],ebx
+  mov ebx,[eax+4]
+  mov [zpos],ebx
+  mov ebx,[eax+8]
+  mov [ypos],ebx
+  pop ebx
+  jmp code
+
+load:
+  mov byte ptr [enable_load],0
+  push ebx
+  mov ebx,[xpos]
+  mov [eax+0],ebx
+  mov ebx,[zpos]
+  mov [eax+4],ebx
+  mov ebx,[ypos]
+  mov [eax+8],ebx
+
+  fld [eax+8]       // load player higher on Y coordinate so he doesn't fall under the ground
+  fadd [yincrease]
+  fstp [eax+8]
+
+  pop ebx
+  jmp code
+
+save2:
+  mov byte ptr [enable_save2],0
+  push ebx
+  mov ebx,[eax+0]
+  mov [xpos2],ebx
+  mov ebx,[eax+4]
+  mov [zpos2],ebx
+  mov ebx,[eax+8]
+  mov [ypos2],ebx
+  pop ebx
+  jmp code
+
+load2:
+  mov byte ptr [enable_load2],0
+  push ebx
+  mov ebx,[xpos2]
+  mov [eax+0],ebx
+  mov ebx,[zpos2]
+  mov [eax+4],ebx
+  mov ebx,[ypos2]
+  mov [eax+8],ebx
+
+  fld [eax+8]       // load player higher on Y coordinate so he doesn't fall under the ground
+  fadd [yincrease]
+  fstp [eax+8]
+
+  pop ebx
+  jmp code
+
+save3:
+  mov byte ptr [enable_save3],0
+  push ebx
+  mov ebx,[eax+0]
+  mov [xpos3],ebx
+  mov ebx,[eax+4]
+  mov [zpos3],ebx
+  mov ebx,[eax+8]
+  mov [ypos3],ebx
+  pop ebx
+  jmp code
+
+load3:
+  mov byte ptr [enable_load3],0
+  push ebx
+  mov ebx,[xpos3]
+  mov [eax+0],ebx
+  mov ebx,[zpos3]
+  mov [eax+4],ebx
+  mov ebx,[ypos3]
+  mov [eax+8],ebx
+
+  fld [eax+8]       // load player higher on Y coordinate so he doesn't fall under the ground
+  fadd [yincrease]
+  fstp [eax+8]
+
+  pop ebx
+  jmp code
+
+save4:
+  mov byte ptr [enable_save4],0
+  push ebx
+  mov ebx,[eax+0]
+  mov [xpos4],ebx
+  mov ebx,[eax+4]
+  mov [zpos4],ebx
+  mov ebx,[eax+8]
+  mov [ypos4],ebx
+  pop ebx
+  jmp code
+
+load4:
+  mov byte ptr [enable_load4],0
+  push ebx
+  mov ebx,[xpos4]
+  mov [eax+0],ebx
+  mov ebx,[zpos4]
+  mov [eax+4],ebx
+  mov ebx,[ypos4]
+  mov [eax+8],ebx
+
+  fld [eax+8]       // load player higher on Y coordinate so he doesn't fall under the ground
+  fadd [yincrease]
+  fstp [eax+8]
+
+  pop ebx
+  jmp code
+
+code:
+  mov eax,[eax+08]
+  cmp dword ptr [esp+38],10
+  jmp return
+
+PlayerCoordinates:
+  jmp newmem2
+  nop 3
+return:
+
+[DISABLE]
+
+PlayerCoordinates:
+  db 8B 40 08 83 7C 24 38 10
+
+unregistersymbol(PlayerCoordinates)
+unregistersymbol(playerCoords)
+unregistersymbol(xpos)
+unregistersymbol(zpos)
+unregistersymbol(ypos)
+unregistersymbol(enable_save)
+unregistersymbol(enable_load)
+
+unregistersymbol(xpos2)
+unregistersymbol(zpos2)
+unregistersymbol(ypos2)
+unregistersymbol(enable_save2)
+unregistersymbol(enable_load2)
+
+unregistersymbol(xpos3)
+unregistersymbol(zpos3)
+unregistersymbol(ypos3)
+unregistersymbol(enable_save3)
+unregistersymbol(enable_load3)
+
+unregistersymbol(xpos4)
+unregistersymbol(zpos4)
+unregistersymbol(ypos4)
+unregistersymbol(enable_save4)
+unregistersymbol(enable_load4)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Bully.exe"+49166
+
+"Bully.exe"+4914E: 56                 -  push esi
+"Bully.exe"+4914F: 57                 -  push edi
+"Bully.exe"+49150: 89 4C 24 24        -  mov [esp+24],ecx
+"Bully.exe"+49154: 74 08              -  je Bully.exe+4915E
+"Bully.exe"+49156: 8B 40 14           -  mov eax,[eax+14]
+"Bully.exe"+49159: 83 C0 30           -  add eax,30
+"Bully.exe"+4915C: EB 03              -  jmp Bully.exe+49161
+"Bully.exe"+4915E: 83 C0 04           -  add eax,04
+"Bully.exe"+49161: 8B 08              -  mov ecx,[eax]
+"Bully.exe"+49163: 8B 50 04           -  mov edx,[eax+04]
+// ---------- INJECTING HERE ----------
+"Bully.exe"+49166: 8B 40 08           -  mov eax,[eax+08]
+"Bully.exe"+49169: 83 7C 24 38 10     -  cmp dword ptr [esp+38],10
+// ---------- DONE INJECTING  ----------
+"Bully.exe"+4916E: 89 4C 24 28        -  mov [esp+28],ecx
+"Bully.exe"+49172: 8B 0D 58 7C 0C 02  -  mov ecx,[Bully.exe+1CC7C58]
+"Bully.exe"+49178: 8B 71 08           -  mov esi,[ecx+08]
+"Bully.exe"+4917B: 89 54 24 2C        -  mov [esp+2C],edx
+"Bully.exe"+4917F: 89 44 24 30        -  mov [esp+30],eax
+"Bully.exe"+49183: 0F 95 44 24 13     -  setne byte ptr [esp+13]
+"Bully.exe"+49188: C6 44 24 12 01     -  mov byte ptr [esp+12],01
+"Bully.exe"+4918D: 89 74 24 20        -  mov [esp+20],esi
+"Bully.exe"+49191: E8 64 35 41 00     -  call Bully.exe+45C6FA
+"Bully.exe"+49196: 8B C8              -  mov ecx,eax
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>14</ID>
+                  <Description>"Player X Coordinate"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>playerCoords</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>16</ID>
+                  <Description>"Player Z Coordinate"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>playerCoords</Address>
+                  <Offsets>
+                    <Offset>4</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>15</ID>
+                  <Description>"Player Y Coordinate"</Description>
+                  <VariableType>Float</VariableType>
+                  <Address>playerCoords</Address>
+                  <Offsets>
+                    <Offset>8</Offset>
+                  </Offsets>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>19</ID>
+                  <Description>"Saved Location 1 X Coordinate"</Description>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>xpos</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>21</ID>
+                  <Description>"Saved Location 1 Z Coordinate"</Description>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>zpos</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>20</ID>
+                  <Description>"Saved Location 1 Y Coordinate"</Description>
+                  <Color>FF0000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>ypos</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>17</ID>
+                  <Description>"Save Char Location 1 (Ctrl+F1)"</Description>
+                  <Color>FF0000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_save</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>112</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>18</ID>
+                  <Description>"Load/Teleport to Saved Char Location 1 (Shift+F1)"</Description>
+                  <Color>FF0000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_load</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>16</Key>
+                        <Key>112</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>22</ID>
+                  <Description>"Saved Location 2 X Coordinate"</Description>
+                  <Color>0000FF</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>xpos2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>23</ID>
+                  <Description>"Saved Location 2 Z Coordinate"</Description>
+                  <Color>0000FF</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>zpos2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>24</ID>
+                  <Description>"Saved Location 2 Y Coordinate"</Description>
+                  <Color>0000FF</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>ypos2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>25</ID>
+                  <Description>"Save Char Location 2 (Ctrl+F2)"</Description>
+                  <Color>0000FF</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_save2</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>113</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>26</ID>
+                  <Description>"Load/Teleport to Saved Char Location 2 (Shift+F2)"</Description>
+                  <Color>0000FF</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_load2</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>16</Key>
+                        <Key>113</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>27</ID>
+                  <Description>"Saved Location 3 X Coordinate"</Description>
+                  <Color>FF00FF</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>xpos3</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>28</ID>
+                  <Description>"Saved Location 3 Z Coordinate"</Description>
+                  <Color>FF00FF</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>zpos3</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>29</ID>
+                  <Description>"Saved Location 3 Y Coordinate"</Description>
+                  <Color>FF00FF</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>ypos3</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>30</ID>
+                  <Description>"Save Char Location 3 (Ctrl+F3)"</Description>
+                  <Color>FF00FF</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_save3</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>114</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>31</ID>
+                  <Description>"Load/Teleport to Saved Char Location 3 (Shift+F3)"</Description>
+                  <Color>FF00FF</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_load3</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>16</Key>
+                        <Key>114</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>32</ID>
+                  <Description>"Saved Location 4 X Coordinate"</Description>
+                  <Color>808000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>xpos4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>33</ID>
+                  <Description>"Saved Location 4 Z Coordinate"</Description>
+                  <Color>808000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>zpos4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>34</ID>
+                  <Description>"Saved Location 4 Y Coordinate"</Description>
+                  <Color>808000</Color>
+                  <VariableType>Float</VariableType>
+                  <Address>ypos4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>35</ID>
+                  <Description>"Save Char Location 4 (Ctrl+F4)"</Description>
+                  <Color>808000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_save4</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>17</Key>
+                        <Key>115</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>36</ID>
+                  <Description>"Load/Teleport to Saved Char Location 4 (Shift+F4)"</Description>
+                  <Color>808000</Color>
+                  <VariableType>Byte</VariableType>
+                  <Address>enable_load4</Address>
+                  <Hotkeys>
+                    <Hotkey>
+                      <Action>Set Value</Action>
+                      <Keys>
+                        <Key>16</Key>
+                        <Key>115</Key>
+                      </Keys>
+                      <Value>1</Value>
+                      <ID>0</ID>
+                      <ActivateSound>Activate</ActivateSound>
+                    </Hotkey>
+                  </Hotkeys>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>126</ID>
+          <Description>"Unlock All Weapons and secret weapons"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-08-29
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(UnlockAllWeapons,Bully.exe,8B 44 24 04 3B 05 08 41 BF 00) // should be unique
+
+UnlockAllWeapons:
+  ret 4
+registersymbol(UnlockAllWeapons)
+
+[DISABLE]
+
+UnlockAllWeapons:
+  db 8B 44 24 04 3B 05 08 41 BF 00
+
+unregistersymbol(UnlockAllWeapons)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+5CF40
+
+Bully.exe+5CF36: CC                 - int 3 
+Bully.exe+5CF37: CC                 - int 3 
+Bully.exe+5CF38: CC                 - int 3 
+Bully.exe+5CF39: CC                 - int 3 
+Bully.exe+5CF3A: CC                 - int 3 
+Bully.exe+5CF3B: CC                 - int 3 
+Bully.exe+5CF3C: CC                 - int 3 
+Bully.exe+5CF3D: CC                 - int 3 
+Bully.exe+5CF3E: CC                 - int 3 
+Bully.exe+5CF3F: CC                 - int 3 
+// ---------- INJECTING HERE ----------
+Bully.exe+5CF40: 8B 44 24 04        - mov eax,[esp+04]
+// ---------- DONE INJECTING  ----------
+Bully.exe+5CF44: 3B 05 08 41 BF 00  - cmp eax,[Bully.exe+7F4108]
+Bully.exe+5CF4A: 74 32              - je Bully.exe+5CF7E
+Bully.exe+5CF4C: 3B 05 00 41 BF 00  - cmp eax,[Bully.exe+7F4100]
+Bully.exe+5CF52: 74 2A              - je Bully.exe+5CF7E
+Bully.exe+5CF54: 3B 05 98 42 BF 00  - cmp eax,[Bully.exe+7F4298]
+Bully.exe+5CF5A: 74 22              - je Bully.exe+5CF7E
+Bully.exe+5CF5C: 50                 - push eax
+Bully.exe+5CF5D: E8 5E FD FF FF     - call Bully.exe+5CCC0
+Bully.exe+5CF62: 83 F8 FF           - cmp eax,-01
+Bully.exe+5CF65: 75 05              - jne Bully.exe+5CF6C
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>41</ID>
+          <Description>"Unlock All Collectibles"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-08-27
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(UnlockAllCollectibles,Bully.exe,80 7C 69 04 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  cmp byte ptr [ecx+ebp*2+04],00
+  mov byte ptr [ecx+ebp*2+04],01
+  jmp return
+
+UnlockAllCollectibles:
+  jmp newmem
+return:
+registersymbol(UnlockAllCollectibles)
+
+[DISABLE]
+
+UnlockAllCollectibles:
+  db 80 7C 69 04 00
+
+unregistersymbol(UnlockAllCollectibles)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+26467
+
+Bully.exe+2644E: 7E 2E              - jle Bully.exe+2647E
+Bully.exe+26450: 53                 - push ebx
+Bully.exe+26451: 8B 5C 24 0C        - mov ebx,[esp+0C]
+Bully.exe+26455: 55                 - push ebp
+Bully.exe+26456: 57                 - push edi
+Bully.exe+26457: 8D B9 94 01 00 00  - lea edi,[ecx+00000194]
+Bully.exe+2645D: 8D 49 00           - lea ecx,[ecx+00]
+Bully.exe+26460: 39 1F              - cmp [edi],ebx
+Bully.exe+26462: 75 0D              - jne Bully.exe+26471
+Bully.exe+26464: 0F BF EA           - movsx ebp,dx
+// ---------- INJECTING HERE ----------
+Bully.exe+26467: 80 7C 69 04 00     - cmp byte ptr [ecx+ebp*2+04],00
+// ---------- DONE INJECTING  ----------
+Bully.exe+2646C: 74 03              - je Bully.exe+26471
+Bully.exe+2646E: 83 C0 01           - add eax,01
+Bully.exe+26471: 83 C2 01           - add edx,01
+Bully.exe+26474: 83 C7 18           - add edi,18
+Bully.exe+26477: 3B D6              - cmp edx,esi
+Bully.exe+26479: 7C E5              - jl Bully.exe+26460
+Bully.exe+2647B: 5F                 - pop edi
+Bully.exe+2647C: 5D                 - pop ebp
+Bully.exe+2647D: 5B                 - pop ebx
+Bully.exe+2647E: 5E                 - pop esi
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>228</ID>
+          <Description>"In-class scripts (Turn off when not using)"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>221</ID>
+              <Description>"Freeze English Class Timer"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-09
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(classTimer,Bully.exe,D9 96 C8 04 00 00 D9 EE D8 D1 DF E0 DD D9 F6 C4 01 75 39) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  fst dword ptr [esi+000004C8]
+  mov [esi+4C8],(float)180
+  jmp return
+
+classTimer:
+  jmp newmem
+  nop
+return:
+registersymbol(classTimer)
+
+[DISABLE]
+
+classTimer:
+  db D9 96 C8 04 00 00
+
+unregistersymbol(classTimer)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+2ED069
+
+Bully.exe+2ED042: 3B E8              - cmp ebp,eax
+Bully.exe+2ED044: 5D                 - pop ebp
+Bully.exe+2ED045: 74 BB              - je Bully.exe+2ED002
+Bully.exe+2ED047: D9 86 C8 04 00 00  - fld dword ptr [esi+000004C8]
+Bully.exe+2ED04D: D9 05 6C 65 BC 00  - fld dword ptr [Bully.exe+7C656C]
+Bully.exe+2ED053: D8 0D A4 A9 C1 00  - fmul dword ptr [Bully.exe+81A9A4]
+Bully.exe+2ED059: D9 5C 24 10        - fstp dword ptr [esp+10]
+Bully.exe+2ED05D: D8 64 24 10        - fsub dword ptr [esp+10]
+Bully.exe+2ED061: D9 5C 24 10        - fstp dword ptr [esp+10]
+Bully.exe+2ED065: D9 44 24 10        - fld dword ptr [esp+10]
+// ---------- INJECTING HERE ----------
+Bully.exe+2ED069: D9 96 C8 04 00 00  - fst dword ptr [esi+000004C8]
+// ---------- DONE INJECTING  ----------
+Bully.exe+2ED06F: D9 EE              - fldz 
+Bully.exe+2ED071: D8 D1              - fcom st(0),st(1)
+Bully.exe+2ED073: DF E0              - fnstsw ax
+Bully.exe+2ED075: DD D9              - fstp st(1)
+Bully.exe+2ED077: F6 C4 01           - test ah,01
+Bully.exe+2ED07A: 75 39              - jne Bully.exe+2ED0B5
+Bully.exe+2ED07C: 8B CE              - mov ecx,esi
+Bully.exe+2ED07E: D9 9E C8 04 00 00  - fstp dword ptr [esi+000004C8]
+Bully.exe+2ED084: E8 47 F2 FF FF     - call Bully.exe+2EC2D0
+Bully.exe+2ED089: 89 44 24 10        - mov [esp+10],eax
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>229</ID>
+              <Description>"Freeze Biology Class Timer"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-09
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(bioTimer,Bully.exe,D9 56 34 D9 1C 24 E8 F1) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  fst dword ptr [esi+34]
+  mov [esi+34],(float)180
+  fstp dword ptr [esp]
+  jmp return
+
+bioTimer:
+  jmp newmem
+  nop
+return:
+registersymbol(bioTimer)
+
+[DISABLE]
+
+bioTimer:
+  db D9 56 34 D9 1C 24
+
+unregistersymbol(bioTimer)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+2E43A4
+
+Bully.exe+2E4381: 56                 - push esi
+Bully.exe+2E4382: 8B F1              - mov esi,ecx
+Bully.exe+2E4384: D9 46 34           - fld dword ptr [esi+34]
+Bully.exe+2E4387: 51                 - push ecx
+Bully.exe+2E4388: D9 05 A8 63 BC 00  - fld dword ptr [Bully.exe+7C63A8]
+Bully.exe+2E438E: D8 0D A4 A9 C1 00  - fmul dword ptr [Bully.exe+81A9A4]
+Bully.exe+2E4394: D9 5C 24 08        - fstp dword ptr [esp+08]
+Bully.exe+2E4398: D8 64 24 08        - fsub dword ptr [esp+08]
+Bully.exe+2E439C: D9 5C 24 08        - fstp dword ptr [esp+08]
+Bully.exe+2E43A0: D9 44 24 08        - fld dword ptr [esp+08]
+// ---------- INJECTING HERE ----------
+Bully.exe+2E43A4: D9 56 34           - fst dword ptr [esi+34]
+// ---------- DONE INJECTING  ----------
+Bully.exe+2E43A7: D9 1C 24           - fstp dword ptr [esp]
+Bully.exe+2E43AA: E8 F1 14 02 00     - call Bully.exe+3058A0
+Bully.exe+2E43AF: D9 EE              - fldz 
+Bully.exe+2E43B1: D8 56 34           - fcom dword ptr [esi+34]
+Bully.exe+2E43B4: DF E0              - fnstsw ax
+Bully.exe+2E43B6: F6 C4 01           - test ah,01
+Bully.exe+2E43B9: 75 30              - jne Bully.exe+2E43EB
+Bully.exe+2E43BB: 6A 00              - push 00
+Bully.exe+2E43BD: D9 5E 34           - fstp dword ptr [esi+34]
+Bully.exe+2E43C0: C6 46 04 00        - mov byte ptr [esi+04],00
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>230</ID>
+              <Description>"Freeze Geography Class Timer"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-10
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(GeogTimer,Bully.exe,D9 5E 34 E8 A8 D2 FF FF) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  fstp dword ptr [esi+34]
+  mov [esi+34],(float)180
+  call Bully.exe+2F4150
+  jmp return
+
+GeogTimer:
+  jmp newmem
+  nop 3
+return:
+registersymbol(GeogTimer)
+
+[DISABLE]
+
+GeogTimer:
+  db D9 5E 34 E8 A8 D2 FF FF
+
+unregistersymbol(GeogTimer)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+2F6EA0
+
+Bully.exe+2F6E6E: E9 0D E2 00 00        - jmp Bully.exe+305080
+Bully.exe+2F6E73: 83 3D AC 87 0C 02 00  - cmp dword ptr [Bully.exe+1CC87AC],00
+Bully.exe+2F6E7A: 0F 85 1B 03 00 00     - jne Bully.exe+2F719B
+Bully.exe+2F6E80: 80 BE 7C 06 00 00 00  - cmp byte ptr [esi+0000067C],00
+Bully.exe+2F6E87: 75 1A                 - jne Bully.exe+2F6EA3
+Bully.exe+2F6E89: D9 46 34              - fld dword ptr [esi+34]
+Bully.exe+2F6E8C: D9 05 24 66 BC 00     - fld dword ptr [Bully.exe+7C6624]
+Bully.exe+2F6E92: D8 0D A4 A9 C1 00     - fmul dword ptr [Bully.exe+81A9A4]
+Bully.exe+2F6E98: D9 5C 24 08           - fstp dword ptr [esp+08]
+Bully.exe+2F6E9C: D8 64 24 08           - fsub dword ptr [esp+08]
+// ---------- INJECTING HERE ----------
+Bully.exe+2F6EA0: D9 5E 34              - fstp dword ptr [esi+34]
+// ---------- DONE INJECTING  ----------
+Bully.exe+2F6EA3: E8 A8 D2 FF FF        - call Bully.exe+2F4150
+Bully.exe+2F6EA8: 80 7E 04 00           - cmp byte ptr [esi+04],00
+Bully.exe+2F6EAC: 0F 84 E9 02 00 00     - je Bully.exe+2F719B
+Bully.exe+2F6EB2: 8B 0D 88 42 CF 00     - mov ecx,[Bully.exe+8F4288]
+Bully.exe+2F6EB8: E8 C3 FE EA FF        - call Bully.exe+1A6D80
+Bully.exe+2F6EBD: 85 C0                 - test eax,eax
+Bully.exe+2F6EBF: 74 0B                 - je Bully.exe+2F6ECC
+Bully.exe+2F6EC1: 8B 0D 88 42 CF 00     - mov ecx,[Bully.exe+8F4288]
+Bully.exe+2F6EC7: E8 A4 FF EA FF        - call Bully.exe+1A6E70
+Bully.exe+2F6ECC: 6A 00                 - push 00
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>232</ID>
+              <Description>"Freeze Math Class Timer"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-10
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(mathTimer,Bully.exe,D9 56 34 D9 1C 24 E8 B1) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  fst dword ptr [esi+34]
+  mov [esi+34],(float)180
+  fstp dword ptr [esp]
+  jmp return
+
+mathTimer:
+  jmp newmem
+  nop
+return:
+registersymbol(mathTimer)
+
+[DISABLE]
+
+mathTimer:
+  db D9 56 34 D9 1C 24
+
+unregistersymbol(mathTimer)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+2F8DE4
+
+Bully.exe+2F8DC1: 56                 - push esi
+Bully.exe+2F8DC2: 8B F1              - mov esi,ecx
+Bully.exe+2F8DC4: D9 46 34           - fld dword ptr [esi+34]
+Bully.exe+2F8DC7: 51                 - push ecx
+Bully.exe+2F8DC8: D9 05 CC 66 BC 00  - fld dword ptr [Bully.exe+7C66CC]
+Bully.exe+2F8DCE: D8 0D A4 A9 C1 00  - fmul dword ptr [Bully.exe+81A9A4]
+Bully.exe+2F8DD4: D9 5C 24 08        - fstp dword ptr [esp+08]
+Bully.exe+2F8DD8: D8 64 24 08        - fsub dword ptr [esp+08]
+Bully.exe+2F8DDC: D9 5C 24 08        - fstp dword ptr [esp+08]
+Bully.exe+2F8DE0: D9 44 24 08        - fld dword ptr [esp+08]
+// ---------- INJECTING HERE ----------
+Bully.exe+2F8DE4: D9 56 34           - fst dword ptr [esi+34]
+// ---------- DONE INJECTING  ----------
+Bully.exe+2F8DE7: D9 1C 24           - fstp dword ptr [esp]
+Bully.exe+2F8DEA: E8 B1 CA 00 00     - call Bully.exe+3058A0
+Bully.exe+2F8DEF: D9 EE              - fldz 
+Bully.exe+2F8DF1: D8 56 34           - fcom dword ptr [esi+34]
+Bully.exe+2F8DF4: DF E0              - fnstsw ax
+Bully.exe+2F8DF6: F6 C4 01           - test ah,01
+Bully.exe+2F8DF9: 75 0A              - jne Bully.exe+2F8E05
+Bully.exe+2F8DFB: D9 5E 34           - fstp dword ptr [esi+34]
+Bully.exe+2F8DFE: C6 46 04 00        - mov byte ptr [esi+04],00
+Bully.exe+2F8E02: 5E                 - pop esi
+}
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>226</ID>
+              <Description>"Music Class Ez Progress %"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-09
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(musicClassProg,Bully.exe,D9 94 37 14 83 00 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(floatVal)
+
+newmem:
+
+code:
+  fst dword ptr [edi+esi+00008314]
+  fld dword ptr [edi+esi+00008314]
+  fadd dword ptr [floatVal]
+  fstp dword ptr [edi+esi+00008314]
+  jmp return
+
+floatVal:
+  dd (float)25
+
+musicClassProg:
+  jmp newmem
+  nop 2
+return:
+registersymbol(musicClassProg)
+
+[DISABLE]
+
+musicClassProg:
+  db D9 94 37 14 83 00 00
+
+unregistersymbol(musicClassProg)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+2FAE50
+
+Bully.exe+2FAE2A: D9 44 24 30              - fld dword ptr [esp+30]
+Bully.exe+2FAE2E: DD E1                    - fucom st(1)
+Bully.exe+2FAE30: DF E0                    - fnstsw ax
+Bully.exe+2FAE32: DD D9                    - fstp st(1)
+Bully.exe+2FAE34: F6 C4 44                 - test ah,44
+Bully.exe+2FAE37: 7A 08                    - jp Bully.exe+2FAE41
+Bully.exe+2FAE39: 83 84 37 D4 82 00 00 01  - add dword ptr [edi+esi+000082D4],01
+Bully.exe+2FAE41: D8 84 37 14 83 00 00     - fadd dword ptr [edi+esi+00008314]
+Bully.exe+2FAE48: D9 5C 24 30              - fstp dword ptr [esp+30]
+Bully.exe+2FAE4C: D9 44 24 30              - fld dword ptr [esp+30]
+// ---------- INJECTING HERE ----------
+Bully.exe+2FAE50: D9 94 37 14 83 00 00     - fst dword ptr [edi+esi+00008314]
+// ---------- DONE INJECTING  ----------
+Bully.exe+2FAE57: D9 EE                    - fldz 
+Bully.exe+2FAE59: D8 D1                    - fcom st(0),st(1)
+Bully.exe+2FAE5B: DF E0                    - fnstsw ax
+Bully.exe+2FAE5D: DD D9                    - fstp st(1)
+Bully.exe+2FAE5F: F6 C4 41                 - test ah,41
+Bully.exe+2FAE62: 75 09                    - jne Bully.exe+2FAE6D
+Bully.exe+2FAE64: D9 9C 37 14 83 00 00     - fstp dword ptr [edi+esi+00008314]
+Bully.exe+2FAE6B: EB 02                    - jmp Bully.exe+2FAE6F
+Bully.exe+2FAE6D: DD D8                    - fstp st(0)
+Bully.exe+2FAE6F: 38 5C 24 34              - cmp [esp+34],bl
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>170</ID>
+          <Description>"Speed Up Game Clock"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(gameClock,Bully.exe,88 15 4A EB BC 00) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+
+newmem:
+
+code:
+  add dl,#60
+  mov [Bully.exe+7CEB4A],dl
+  jmp return
+
+gameClock:
+  jmp newmem
+  nop
+return:
+registersymbol(gameClock)
+
+[DISABLE]
+
+gameClock:
+  db 88 15 4A EB BC 00
+
+unregistersymbol(gameClock)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+26135
+
+Bully.exe+26116: 76 4F                 - jna Bully.exe+26167
+Bully.exe+26118: 33 D2                 - xor edx,edx
+Bully.exe+2611A: F7 F6                 - div esi
+Bully.exe+2611C: 8A 15 4A EB BC 00     - mov dl,[Bully.exe+7CEB4A]
+Bully.exe+26122: 8B F9                 - mov edi,ecx
+Bully.exe+26124: 89 3D 44 EB BC 00     - mov [Bully.exe+7CEB44],edi
+Bully.exe+2612A: 02 D0                 - add dl,al
+Bully.exe+2612C: 83 F8 05              - cmp eax,05
+Bully.exe+2612F: 0F 9F C0              - setg al
+Bully.exe+26132: 80 FA 3C              - cmp dl,3C
+// ---------- INJECTING HERE ----------
+Bully.exe+26135: 88 15 4A EB BC 00     - mov [Bully.exe+7CEB4A],dl
+// ---------- DONE INJECTING  ----------
+Bully.exe+2613B: A2 3C EB BC 00        - mov [Bully.exe+7CEB3C],al
+Bully.exe+26140: 72 25                 - jb Bully.exe+26167
+Bully.exe+26142: A0 4B EB BC 00        - mov al,[Bully.exe+7CEB4B]
+Bully.exe+26147: 04 01                 - add al,01
+Bully.exe+26149: 3C 18                 - cmp al,18
+Bully.exe+2614B: C6 05 4A EB BC 00 00  - mov byte ptr [Bully.exe+7CEB4A],00
+Bully.exe+26152: A2 4B EB BC 00        - mov [Bully.exe+7CEB4B],al
+Bully.exe+26157: 72 0E                 - jb Bully.exe+26167
+Bully.exe+26159: 83 05 4C EB BC 00 01  - add dword ptr [Bully.exe+7CEB4C],01
+Bully.exe+26160: C6 05 4B EB BC 00 00  - mov byte ptr [Bully.exe+7CEB4B],00
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>40</ID>
+          <Description>"No HUD"</Description>
+          <LastState/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-08-19
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+assert("Bully.exe"+13CFEC,FF D2 5B 83 3D 24 87 C1 00 07) // should be unique
+"Bully.exe"+13CFEC:
+  db 90 90
+
+[DISABLE]
+"Bully.exe"+13CFEC:
+  db FF D2 5B 83 3D 24 87 C1 00 07
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+13CFEC
+
+Bully.exe+13CFD5: 75 17                 - jne Bully.exe+13CFEE
+Bully.exe+13CFD7: 8B 06                 - mov eax,[esi]
+Bully.exe+13CFD9: 8B 50 28              - mov edx,[eax+28]
+Bully.exe+13CFDC: EB 0C                 - jmp Bully.exe+13CFEA
+Bully.exe+13CFDE: 8B 06                 - mov eax,[esi]
+Bully.exe+13CFE0: 8B 50 20              - mov edx,[eax+20]
+Bully.exe+13CFE3: EB 05                 - jmp Bully.exe+13CFEA
+Bully.exe+13CFE5: 8B 06                 - mov eax,[esi]
+Bully.exe+13CFE7: 8B 50 24              - mov edx,[eax+24]
+Bully.exe+13CFEA: 8B CE                 - mov ecx,esi
+// ---------- INJECTING HERE ----------
+Bully.exe+13CFEC: FF D2                 - call edx
+// ---------- DONE INJECTING  ----------
+Bully.exe+13CFEE: 5B                    - pop ebx
+Bully.exe+13CFEF: 83 3D 24 87 C1 00 07  - cmp dword ptr [Bully.exe+818724],07
+Bully.exe+13CFF6: 5E                    - pop esi
+Bully.exe+13CFF7: 75 09                 - jne Bully.exe+13D002
+Bully.exe+13CFF9: D9 04 24              - fld dword ptr [esp]
+Bully.exe+13CFFC: D9 1D 10 4E BA 00     - fstp dword ptr [Bully.exe+7A4E10]
+Bully.exe+13D002: 59                    - pop ecx
+Bully.exe+13D003: C3                    - ret 
+Bully.exe+13D004: CC                    - int 3 
+Bully.exe+13D005: CC                    - int 3 
+}
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>39</ID>
+          <Description>"Other stuff"</Description>
+          <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>0</ID>
+              <Description>"Main Script 2 (Health &amp; OHK) [Ally Godmode will not be perfect]"</Description>
+              <Options moDeactivateChildrenAsWell="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version:
+  Date   : 2020-07-25
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(health1,Bully.exe,D9 93 B8 1C 00 00 D9 EE D8) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(infhealth)
+label(infhealth_flag)
+label(ally_infhealth)
+label(ally_infhealth_flag)
+label(ohk)
+label(ohk_flag)
+label(playerHealth)
+label(enemyHealth)
+label(allyHealth)
+registersymbol(infhealth_flag)
+registersymbol(ally_infhealth_flag)
+registersymbol(ohk_flag)
+registersymbol(playerHealth)
+registersymbol(enemyHealth)
+registersymbol(allyHealth)
+
+
+newmem:
+  cmp [ebx+1928],#95     // check_infinite health flag
+  je infhealth
+  cmp [ebx+364],#1082130432    // allyCheck, if player (Jimmy) hits Ally
+  je ally_infhealth
+  cmp [ebx+B50],#65792         // allyCheck, if player (Jimmy) hits Ally OR enemy hits Ally
+  je ally_infhealth
+  cmp [ohk_flag],1   // check_one hit kill flag
+  je ohk
+  jmp code
+
+infhealth:
+  cmp [infhealth_flag],0
+  je code
+
+  push eax              // move health cap into current health = infinite health
+  mov eax,[ebx+1CBC]
+  mov [ebx+1CB8],eax
+  pop eax
+
+  push eax          // player health injection copy
+  lea eax,[ebx+1CB8]
+  mov [playerHealth],eax
+  pop eax
+  jmp return
+
+ally_infhealth:
+  cmp [ally_infhealth_flag],0
+  je code
+
+  fst dword ptr [ebx+00001CB8]
+  mov [ebx+1CB8],(float)1000   // move 300 into current health = infinite health
+
+  push eax           // ally health injection copy
+  lea eax,[ebx+1CB8]
+  mov [allyHealth],eax
+  pop eax
+  jmp return
+
+code:
+  fst dword ptr [ebx+00001CB8]  // original code
+
+  push eax           // enemy health injection copy
+  lea eax,[ebx+1CB8]
+  mov [enemyHealth],eax
+  pop eax
+  jmp return
+
+ohk:
+  fst dword ptr [ebx+00001CB8]
+  mov [ebx+00001CB8],(float)0    // one hit kill
+
+  push eax                       // enemy health injection copy
+  lea eax,[ebx+1CB8]
+  mov [enemyHealth],eax
+  pop eax
+  jmp return
+
+playerHealth:
+  dd 0
+enemyHealth:
+  dd 0
+allyHealth:
+  dd 0
+infhealth_flag:
+  dd 0
+ally_infhealth_flag:
+  dd 0
+ohk_flag:
+  dd 0
+
+health1:
+  jmp newmem
+  nop
+return:
+registersymbol(health1)
+
+[DISABLE]
+
+health1:
+  db D9 93 B8 1C 00 00
+
+unregistersymbol(health1)
+unregistersymbol(infhealth_flag)
+unregistersymbol(ohk_flag)
+unregistersymbol(playerHealth)
+unregistersymbol(enemyHealth)
+unregistersymbol(allyHealth)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Bully.exe"+78405
+
+"Bully.exe"+783EC: CC                    -  int 3
+"Bully.exe"+783ED: CC                    -  int 3
+"Bully.exe"+783EE: CC                    -  int 3
+"Bully.exe"+783EF: CC                    -  int 3
+"Bully.exe"+783F0: 53                    -  push ebx
+"Bully.exe"+783F1: 8B D9                 -  mov ebx,ecx
+"Bully.exe"+783F3: D9 83 B8 1C 00 00     -  fld dword ptr [ebx+00001CB8]
+"Bully.exe"+783F9: D8 64 24 08           -  fsub dword ptr [esp+08]
+"Bully.exe"+783FD: D9 5C 24 08           -  fstp dword ptr [esp+08]
+"Bully.exe"+78401: D9 44 24 08           -  fld dword ptr [esp+08]
+// ---------- INJECTING HERE ----------
+"Bully.exe"+78405: D9 93 B8 1C 00 00     -  fst dword ptr [ebx+00001CB8]
+// ---------- DONE INJECTING  ----------
+"Bully.exe"+7840B: D9 EE                 -  fldz
+"Bully.exe"+7840D: D8 D1                 -  fcom st(0),st(1)
+"Bully.exe"+7840F: DF E0                 -  fnstsw ax
+"Bully.exe"+78411: DD D9                 -  fstp st(1)
+"Bully.exe"+78413: F6 C4 41              -  test ah,41
+"Bully.exe"+78416: 75 06                 -  jne Bully.exe+7841E
+"Bully.exe"+78418: D9 93 B8 1C 00 00     -  fst dword ptr [ebx+00001CB8]
+"Bully.exe"+7841E: D9 83 B8 1C 00 00     -  fld dword ptr [ebx+00001CB8]
+"Bully.exe"+78424: D9 83 A8 1C 00 00     -  fld dword ptr [ebx+00001CA8]
+"Bully.exe"+7842A: DE D9                 -  fcompp
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>10</ID>
+                  <Description>"Unlimited Health"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+infhealth_flag:
+dd 1
+
+[DISABLE]
+infhealth_flag:
+dd 0
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>6</ID>
+                      <Description>"Player Health"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>playerHealth</Address>
+                      <Offsets>
+                        <Offset>0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>7</ID>
+                      <Description>"Enemy Health"</Description>
+                      <VariableType>Float</VariableType>
+                      <Address>enemyHealth</Address>
+                      <Offsets>
+                        <Offset>0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>236</ID>
+                  <Description>"Ally Unlimited Health"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+ally_infhealth_flag:
+dd 1
+
+[DISABLE]
+ally_infhealth_flag:
+dd 0
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>235</ID>
+                      <Description>"Ally Health"</Description>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>allyHealth</Address>
+                      <Offsets>
+                        <Offset>0</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>5</ID>
+                  <Description>"One Hit KIll"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+ohk_flag:
+dd 1
+
+[DISABLE]
+ohk_flag:
+dd 0
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>210</ID>
+              <Description>"static addresses (ECX (which has player base address) for Invincibility cheat)"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>201</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Bully.exe+81AEA8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>204</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Bully.exe+83CE14</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>207</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Bully.exe+1CC4334</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>208</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Bully.exe+1CC438C</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>202</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Bully.exe+82B120</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>203</ID>
+                  <Description>"No description"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>Bully.exe+82C13C</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>149</ID>
+              <Description>"Player base address pointer"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>Bully.exe+81AEA8</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>148</ID>
+                  <Description>"(Player Base) static addresses"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>140</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+82B120</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>141</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+82C13C</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>138</ID>
+                      <Description>"turns to 0000000 on restart"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+81AEA8</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>145</ID>
+                      <Description>"turns to 0000000 on restart"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+83CE14</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>146</ID>
+                      <Description>"turns to 0000000 on restart"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+1CC4334</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>147</ID>
+                      <Description>"turns to 0000000 on restart"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+1CC438C</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>152</ID>
+              <Description>"pointer (weapon)"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>Bully.exe+80F654</Address>
+              <Offsets>
+                <Offset>0</Offset>
+              </Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>128</ID>
+              <Description>"Get Weapon ID address 1 (some false IDs)"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-05
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+
+aobscanmodule(weaponsID,Bully.exe,0F BF 82 0E 01 00 00 8B D7) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(weaponID)
+registersymbol(weaponID)
+
+newmem:
+
+code:
+  mov [weaponID],edx  // injection copy
+  movsx eax,word ptr [edx+0000010E]
+  jmp return
+
+weaponID:
+  dd 0
+
+weaponsID:
+  jmp newmem
+  nop 2
+return:
+registersymbol(weaponsID)
+
+[DISABLE]
+
+weaponsID:
+  db 0F BF 82 0E 01 00 00
+
+unregistersymbol(weaponsID)
+unregistersymbol(weaponID)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+15DA0F
+
+Bully.exe+15D9EE: 84 C9                 - test cl,cl
+Bully.exe+15D9F0: 75 0A                 - jne Bully.exe+15D9FC
+Bully.exe+15D9F2: 38 4C 24 0F           - cmp [esp+0F],cl
+Bully.exe+15D9F6: 75 04                 - jne Bully.exe+15D9FC
+Bully.exe+15D9F8: 84 DB                 - test bl,bl
+Bully.exe+15D9FA: 74 62                 - je Bully.exe+15DA5E
+Bully.exe+15D9FC: 39 BE 58 01 00 00     - cmp [esi+00000158],edi
+Bully.exe+15DA02: 73 5A                 - jae Bully.exe+15DA5E
+Bully.exe+15DA04: A1 A8 AE C1 00        - mov eax,[Bully.exe+81AEA8]
+Bully.exe+15DA09: 8B 90 D0 01 00 00     - mov edx,[eax+000001D0]
+// ---------- INJECTING HERE ----------
+Bully.exe+15DA0F: 0F BF 82 0E 01 00 00  - movsx eax,word ptr [edx+0000010E]
+// ---------- DONE INJECTING  ----------
+Bully.exe+15DA16: 8B D7                 - mov edx,edi
+Bully.exe+15DA18: 85 D2                 - test edx,edx
+Bully.exe+15DA1A: 89 54 24 18           - mov [esp+18],edx
+Bully.exe+15DA1E: 89 86 54 01 00 00     - mov [esi+00000154],eax
+Bully.exe+15DA24: DB 44 24 18           - fild dword ptr [esp+18]
+Bully.exe+15DA28: 7D 06                 - jnl Bully.exe+15DA30
+Bully.exe+15DA2A: D8 05 C8 0A 90 00     - fadd dword ptr [Bully.exe+500AC8]
+Bully.exe+15DA30: DC 05 00 D0 90 00     - fadd qword ptr [Bully.exe+50D000]
+Bully.exe+15DA36: D9 7C 24 10           - fnstcw [esp+10]
+Bully.exe+15DA3A: 0F B7 44 24 10        - movzx eax,word ptr [esp+10]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>129</ID>
+                  <Description>"Current Weapon ID"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>[weaponID]+10E</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>123</ID>
+              <Description>"Get Weapon ID address 2 (some false IDs)"</Description>
+              <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-08-29
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(weapons1,Bully.exe,0F BF 8A 0E 01 00 00 3B C8 0F 94 C2 52 56 E8 06) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(weaponsBase)
+registersymbol(weaponsBase)
+
+newmem:
+
+code:
+  mov [weaponsBase],edx
+  movsx ecx,word ptr [edx+0000010E]
+  jmp return
+
+weaponsBase:
+  dd 0
+
+weapons1:
+  jmp newmem
+  nop 2
+return:
+registersymbol(weapons1)
+
+[DISABLE]
+
+weapons1:
+  db 0F BF 8A 0E 01 00 00
+
+unregistersymbol(weapons1)
+unregistersymbol(weaponsBase)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+1BE597
+
+Bully.exe+1BE575: 56                    - push esi
+Bully.exe+1BE576: E8 25 C9 17 00        - call Bully.exe+33AEA0
+Bully.exe+1BE57B: 83 C4 04              - add esp,04
+Bully.exe+1BE57E: 83 F8 01              - cmp eax,01
+Bully.exe+1BE581: 75 31                 - jne Bully.exe+1BE5B4
+Bully.exe+1BE583: 6A 00                 - push 00
+Bully.exe+1BE585: 56                    - push esi
+Bully.exe+1BE586: E8 D5 9D 01 00        - call Bully.exe+1D8360
+Bully.exe+1BE58B: 8B 0D A8 AE C1 00     - mov ecx,[Bully.exe+81AEA8]
+Bully.exe+1BE591: 8B 91 D0 01 00 00     - mov edx,[ecx+000001D0]
+// ---------- INJECTING HERE ----------
+Bully.exe+1BE597: 0F BF 8A 0E 01 00 00  - movsx ecx,word ptr [edx+0000010E]
+// ---------- DONE INJECTING  ----------
+Bully.exe+1BE59E: 3B C8                 - cmp ecx,eax
+Bully.exe+1BE5A0: 0F 94 C2              - sete dl
+Bully.exe+1BE5A3: 52                    - push edx
+Bully.exe+1BE5A4: 56                    - push esi
+Bully.exe+1BE5A5: E8 06 A0 01 00        - call Bully.exe+1D85B0
+Bully.exe+1BE5AA: 83 C4 10              - add esp,10
+Bully.exe+1BE5AD: B8 01 00 00 00        - mov eax,00000001
+Bully.exe+1BE5B2: 5E                    - pop esi
+Bully.exe+1BE5B3: C3                    - ret 
+Bully.exe+1BE5B4: A1 A8 AE C1 00        - mov eax,[Bully.exe+81AEA8]
+}
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>124</ID>
+                  <Description>"Current weapon ID"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>2 Bytes</VariableType>
+                  <Address>[weaponsBase]+10E</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>37</ID>
+              <Description>"Rubberbands (pick up counter) [Static Address]"</Description>
+              <VariableType>Byte</VariableType>
+              <Address>Bully.exe+8F00F0</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>157</ID>
+              <Description>"calls"</Description>
+              <Options moHideChildren="1" moDeactivateChildrenAsWell="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>191</ID>
+                  <Description>"+5D030 (static addresses &amp; pointer) from Give weapon 1"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>164</ID>
+                      <Description>"Main script (to Give Weapon)"</Description>
+                      <Options moHideChildren="1"/>
+                      <LastState/>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(getValue2,Bully.exe,56 8B 74 24 08 83 FE FF 74) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(EeeCeeX2)
+registersymbol(EeeCeeX2)
+
+newmem:
+
+code:
+  push esi
+  mov esi,[esp+08]
+  mov [EeeCeeX2],ecx
+  jmp return
+
+EeeCeeX2:
+  dd 0
+
+getValue2:
+  jmp newmem
+return:
+registersymbol(getValue2)
+
+[DISABLE]
+
+getValue2:
+  db 56 8B 74 24 08
+
+unregistersymbol(getValue2)
+unregistersymbol(EeeCeeX2)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+5D030
+
+Bully.exe+5D01D: C7 44 F3 10 00 00 00 00  - mov [ebx+esi*8+10],00000000
+Bully.exe+5D025: 5E                       - pop esi
+Bully.exe+5D026: 5B                       - pop ebx
+Bully.exe+5D027: C2 04 00                 - ret 0004
+Bully.exe+5D02A: CC                       - int 3 
+Bully.exe+5D02B: CC                       - int 3 
+Bully.exe+5D02C: CC                       - int 3 
+Bully.exe+5D02D: CC                       - int 3 
+Bully.exe+5D02E: CC                       - int 3 
+Bully.exe+5D02F: CC                       - int 3 
+// ---------- INJECTING HERE ----------
+Bully.exe+5D030: 56                       - push esi
+// ---------- DONE INJECTING  ----------
+Bully.exe+5D031: 8B 74 24 08              - mov esi,[esp+08]
+Bully.exe+5D035: 83 FE FF                 - cmp esi,-01
+Bully.exe+5D038: 74 77                    - je Bully.exe+5D0B1
+Bully.exe+5D03A: 57                       - push edi
+Bully.exe+5D03B: 56                       - push esi
+Bully.exe+5D03C: E8 7F FC FF FF           - call Bully.exe+5CCC0
+Bully.exe+5D041: 8B F8                    - mov edi,eax
+Bully.exe+5D043: 83 FF FF                 - cmp edi,-01
+Bully.exe+5D046: 75 17                    - jne Bully.exe+5D05F
+Bully.exe+5D048: 8B 44 24 14              - mov eax,[esp+14]
+}
+</AssemblerScript>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>165</ID>
+                          <Description>"Value in ECX"</Description>
+                          <ShowAsHex>1</ShowAsHex>
+                          <ShowAsSigned>0</ShowAsSigned>
+                          <VariableType>4 Bytes</VariableType>
+                          <Address>EeeCeeX2</Address>
+                        </CheatEntry>
+                      </CheatEntries>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>195</ID>
+                      <Description>"ECX pointer for +5D030"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+83CE14</Address>
+                      <Offsets>
+                        <Offset>1C4</Offset>
+                      </Offsets>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>188</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+83CE14</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>189</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+1CC4334</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>190</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+1CC438C</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>183</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+81AEA8</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>184</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+82B120</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>185</ID>
+                      <Description>"No description"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+82C13C</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>161</ID>
+                  <Description>"Main script 2 (to Give Weapon)"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2021-09-08
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(INJECT,Bully.exe,53 8B 5C 24 08 57 53 8B F9 E8 32) // should be unique
+alloc(newmem,$1000)
+label(code)
+label(return)
+label(EeCeeX)
+registersymbol(EeCeeX)
+
+newmem:
+
+code:
+  push ebx
+  mov ebx,[esp+08]
+  mov [EeCeeX],ecx
+  jmp return
+
+EeCeeX:
+  dd 0
+
+INJECT:
+  jmp newmem
+return:
+registersymbol(INJECT)
+
+[DISABLE]
+
+INJECT:
+  db 53 8B 5C 24 08
+
+unregistersymbol(INJECT)
+unregistersymbol(EeCeeX)
+dealloc(newmem)
+
+{
+// ORIGINAL CODE - INJECTION POINT: Bully.exe+5CD10
+
+Bully.exe+5CD06: CC              - int 3 
+Bully.exe+5CD07: CC              - int 3 
+Bully.exe+5CD08: CC              - int 3 
+Bully.exe+5CD09: CC              - int 3 
+Bully.exe+5CD0A: CC              - int 3 
+Bully.exe+5CD0B: CC              - int 3 
+Bully.exe+5CD0C: CC              - int 3 
+Bully.exe+5CD0D: CC              - int 3 
+Bully.exe+5CD0E: CC              - int 3 
+Bully.exe+5CD0F: CC              - int 3 
+// ---------- INJECTING HERE ----------
+Bully.exe+5CD10: 53              - push ebx
+// ---------- DONE INJECTING  ----------
+Bully.exe+5CD11: 8B 5C 24 08     - mov ebx,[esp+08]
+Bully.exe+5CD15: 57              - push edi
+Bully.exe+5CD16: 53              - push ebx
+Bully.exe+5CD17: 8B F9           - mov edi,ecx
+Bully.exe+5CD19: E8 32 E7 0B 00  - call Bully.exe+11B450
+Bully.exe+5CD1E: 83 C4 04        - add esp,04
+Bully.exe+5CD21: 83 78 64 00     - cmp dword ptr [eax+64],00
+Bully.exe+5CD25: 75 33           - jne Bully.exe+5CD5A
+Bully.exe+5CD27: 83 78 18 01     - cmp dword ptr [eax+18],01
+Bully.exe+5CD2B: 74 2D           - je Bully.exe+5CD5A
+}
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>162</ID>
+                      <Description>"Value in ECX"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>EeCeeX</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>156</ID>
+                      <Description>"Call Weapon (Alt + Numpad 1)"</Description>
+                      <LastState/>
+                      <VariableType>Auto Assembler Script</VariableType>
+                      <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+createthread(newmem)
+registersymbol(newmem)
+
+newmem:
+mov ecx,[EeCeeX]
+push 0
+push 17497D01
+push 12  // Ammo
+push 13C // Weapon ID
+call Bully.exe+5CD10
+ret 10  // cleans the stack
+
+[DISABLE]
+unregistersymbol(newmem)
+dealloc(newmem)
+
+// __thiscall
+// stack - Bully.exe+5CEF5      - 0000012D,00000005,17497D01,00000000,...
+
+{
+The following are 2 byte values:
+
+Fist - 65535
+Skateboard - 437
+Itching Powder - 394
+Camera - 328
+Spray Paint - 321
+Carton of Eggs - 312
+Stink Bombs - 309
+Bottle Rocket Launcher - 307
+Super Slingshot - 306
+Spud Gun - 305
+Firecrackers - 301
+
+}
+</AssemblerScript>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>130</ID>
+                  <Description>"+15C340 call"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+createthread(newmem)
+registersymbol(newmem)
+
+newmem:
+//mov ecx,[Bully.exe+8674F0]
+//push Bully.exe+5CF2B
+//push 41400000
+//push 00000134
+push 12D
+call Bully.exe+15C340
+add esp,4
+ret  // cleans the stack
+
+[DISABLE]
+unregistersymbol(newmem)
+dealloc(newmem)
+
+
+// stack - hidden top - Bully.exe+5CAC6      - 00000134,00000134,41400000,Bully.exe+5CF2B,...
+
+// stack -              Bully.exe+5CAC6      - 00000134,00000134,41400000,Bully.exe+5CF2B,...
+
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>131</ID>
+                      <Description>"+15C340 (static address) call"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+8674F0</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>150</ID>
+                  <Description>"+5CAD3 call"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+createthread(newmem)
+registersymbol(newmem)
+
+newmem:
+//mov ecx,[Bully.exe+80F654]
+push 00000005  // Ammo
+push 0000012D // Weapon ID
+call Bully.exe+5CAD0
+add esp,8  // cleans the stack
+ret
+
+[DISABLE]
+unregistersymbol(newmem)
+dealloc(newmem)
+
+// __cdecl
+// stack - Bully.exe+5CD66      - 0000012D,0000012D,00000005,Bully.exe+5CEF5,...
+
+</AssemblerScript>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>151</ID>
+                      <Description>"+5CAD3 (static address)"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>Bully.exe+80F654</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>154</ID>
+                  <Description>"+5CED0 call"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>[ENABLE]
+alloc(newmem,$100)
+createthread(newmem)
+registersymbol(newmem)
+
+newmem:
+mov ecx,16C78608
+push 00000000
+push 17496D01
+push 0000000C
+push 00000134 // something to do with Weapon ID maybe???
+call Bully.exe+5CED0
+ret 10
+
+[DISABLE]
+unregistersymbol(newmem)
+dealloc(newmem)
+
+// __thiscall
+// stack - Bully.exe+1BE318     - 00000134,0000000C,17496D01,00000000,...
+
+
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>4</ID>
+              <Description>"Trouble Meter doesn't increase / Cops, Prefects etc. can't bust you (write)"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{ Game   : Bully.exe
+  Version: 
+  Date   : 2020-07-31
+  Author : negan
+
+  This script does blah blah blah
+}
+
+[ENABLE]
+
+aobscanmodule(trouble1,Bully.exe,89 8E 40 1D 00 00) // should be unique
+registersymbol(trouble1)
+
+trouble1:
+  db 90 90 90 90 90 90
+
+[DISABLE]
+
+trouble1:
+  db 89 8E 40 1D 00 00
+
+unregistersymbol(trouble1)
+
+{
+// ORIGINAL CODE - INJECTION POINT: "Bully.exe"+77593
+
+"Bully.exe"+7756F: 83 BE 10 13 00 00 0D           -  cmp dword ptr [esi+00001310],0D
+"Bully.exe"+77576: 75 21                          -  jne Bully.exe+77599
+"Bully.exe"+77578: 8B 0D A8 AE C1 00              -  mov ecx,[Bully.exe+81AEA8]
+"Bully.exe"+7757E: E8 BD 32 02 00                 -  call Bully.exe+9A840
+"Bully.exe"+77583: 8B 8E 40 1D 00 00              -  mov ecx,[esi+00001D40]
+"Bully.exe"+77589: 8B C7                          -  mov eax,edi
+"Bully.exe"+7758B: 2B C1                          -  sub eax,ecx
+"Bully.exe"+7758D: 85 C0                          -  test eax,eax
+"Bully.exe"+7758F: 7E 08                          -  jle Bully.exe+77599
+"Bully.exe"+77591: 03 C8                          -  add ecx,eax
+// ---------- INJECTING HERE ----------
+"Bully.exe"+77593: 89 8E 40 1D 00 00              -  mov [esi+00001D40],ecx
+// ---------- DONE INJECTING  ----------
+"Bully.exe"+77599: 8B 0D 8C F7 C0 00              -  mov ecx,[Bully.exe+80F78C]
+"Bully.exe"+7759F: 3B 79 34                       -  cmp edi,[ecx+34]
+"Bully.exe"+775A2: B8 88 13 00 00                 -  mov eax,00001388
+"Bully.exe"+775A7: 7E 05                          -  jle Bully.exe+775AE
+"Bully.exe"+775A9: B8 30 75 00 00                 -  mov eax,00007530
+"Bully.exe"+775AE: 8B 0D B4 A9 C1 00              -  mov ecx,[Bully.exe+81A9B4]
+"Bully.exe"+775B4: 03 C8                          -  add ecx,eax
+"Bully.exe"+775B6: 89 8E 48 1D 00 00              -  mov [esi+00001D48],ecx
+"Bully.exe"+775BC: 5F                             -  pop edi
+"Bully.exe"+775BD: 5E                             -  pop esi
+}
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry GroupHeader="1">
+      <Description>enters inventory</Description>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :mov dl,[eax]</Description>
+      <AddressString>Bully.exe+5CB14</AddressString>
+      <Before>
+        <Byte>8B</Byte>
+        <Byte>41</Byte>
+        <Byte>04</Byte>
+        <Byte>03</Byte>
+        <Byte>C2</Byte>
+      </Before>
+      <Actual>
+        <Byte>8A</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>80</Byte>
+        <Byte>C2</Byte>
+        <Byte>01</Byte>
+        <Byte>32</Byte>
+        <Byte>10</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :xor dl,[eax]</Description>
+      <AddressString>Bully.exe+5CB19</AddressString>
+      <Before>
+        <Byte>8A</Byte>
+        <Byte>10</Byte>
+        <Byte>80</Byte>
+        <Byte>C2</Byte>
+        <Byte>01</Byte>
+      </Before>
+      <Actual>
+        <Byte>32</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>5F</Byte>
+        <Byte>80</Byte>
+        <Byte>E2</Byte>
+        <Byte>7F</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>Code :xor [eax],dl</Description>
+      <AddressString>Bully.exe+5CB1F</AddressString>
+      <Before>
+        <Byte>10</Byte>
+        <Byte>5F</Byte>
+        <Byte>80</Byte>
+        <Byte>E2</Byte>
+        <Byte>7F</Byte>
+      </Before>
+      <Actual>
+        <Byte>30</Byte>
+        <Byte>10</Byte>
+      </Actual>
+      <After>
+        <Byte>8B</Byte>
+        <Byte>41</Byte>
+        <Byte>0C</Byte>
+        <Byte>0F</Byte>
+        <Byte>AF</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry GroupHeader="1">
+      <Description>other- inventory</Description>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>pickup/drop :test byte ptr [edi+ecx],-80</Description>
+      <AddressString>Bully.exe+5D114</AddressString>
+      <Before>
+        <Byte>C0</Byte>
+        <Byte>00</Byte>
+        <Byte>8B</Byte>
+        <Byte>48</Byte>
+        <Byte>04</Byte>
+      </Before>
+      <Actual>
+        <Byte>F6</Byte>
+        <Byte>04</Byte>
+        <Byte>0F</Byte>
+        <Byte>80</Byte>
+      </Actual>
+      <After>
+        <Byte>74</Byte>
+        <Byte>04</Byte>
+        <Byte>33</Byte>
+        <Byte>F6</Byte>
+        <Byte>EB</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>pickup/drop :test byte ptr [edx+esi],-80</Description>
+      <AddressString>Bully.exe+5CADA</AddressString>
+      <Before>
+        <Byte>8B</Byte>
+        <Byte>71</Byte>
+        <Byte>14</Byte>
+        <Byte>32</Byte>
+        <Byte>C0</Byte>
+      </Before>
+      <Actual>
+        <Byte>F6</Byte>
+        <Byte>04</Byte>
+        <Byte>32</Byte>
+        <Byte>80</Byte>
+      </Actual>
+      <After>
+        <Byte>57</Byte>
+        <Byte>75</Byte>
+        <Byte>24</Byte>
+        <Byte>8B</Byte>
+        <Byte>71</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+  <DisassemblerComments>
+    <DisassemblerComment>
+      <Address>"Bully.exe"+289114</Address>
+      <Comment>"Truancy"
+</Comment>
+    </DisassemblerComment>
+    <DisassemblerComment>
+      <Address>"Bully.exe"+289125</Address>
+      <Comment>"Truancy"
+</Comment>
+    </DisassemblerComment>
+  </DisassemblerComments>
+</CheatTable>

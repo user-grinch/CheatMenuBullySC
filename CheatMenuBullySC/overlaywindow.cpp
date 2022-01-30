@@ -92,7 +92,7 @@ void OverlayWindow::Draw()
 	if (m_bShowMenu && ImGui::Begin("Overlay", nullptr, window_flags))
 	{
 		CVector pos{ 0,0,0 };
-		//pos = pWorld->pPlayer->Position;
+		pos = playerPos;
 
 		static float lastTimer = 0;
 		float timer = (float)ImGui::GetTime();

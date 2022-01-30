@@ -20,6 +20,7 @@
 #include "json.h"
 #include "vkeys.h"
 #include "vendor/detours.h"
+#include "game/CVector.h"
 
 using CallbackTable = std::vector<std::pair<std::string, void(*)()>>;
 
@@ -41,6 +42,8 @@ struct JsonData
 		}
 	}
 };
+
+extern CVector& playerPos;
 
 static std::ofstream gLog = std::ofstream("CheatMenu.log");
 // why doesn't this work?

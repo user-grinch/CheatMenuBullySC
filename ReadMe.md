@@ -14,10 +14,6 @@ A CheatMenu for OG Mafia The City of Lost Heaven. Download binaries from [here](
 3. Download binaries from [here](https://github.com/user-grinch/Cheat-Menu-Gun/releases)
 4. Place the files inside your game directory (Replace if necessary)
 
-## Credits
-1. Darkpassanger123
-2. l0wb1t 
-
 ## Images
 <details>
   <summary>Show Images</summary>
