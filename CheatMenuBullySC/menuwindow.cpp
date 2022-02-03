@@ -95,6 +95,7 @@ void MenuWindow::TeleportTab()
 	if (ImGui::BeginTabBar("Teleport", ImGuiTabBarFlags_NoTooltip + ImGuiTabBarFlags_FittingPolicyScroll))
 	{
 		ImGui::Spacing();
+        CVector& playerPos = PLAYER_POS;
 		if (ImGui::BeginTabItem("Teleport"))
 		{
 			ImGui::Spacing();
@@ -137,7 +138,7 @@ void MenuWindow::TeleportTab()
 		{
 			ImGui::Spacing();
             Ui::DrawJSON(m_tpData, 
-                [](std::string& rootkey, std::string& bLocName, std::string& loc)
+                [&](std::string& rootkey, std::string& bLocName, std::string& loc)
                 {
                     try
                     {

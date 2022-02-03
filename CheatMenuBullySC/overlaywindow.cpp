@@ -91,9 +91,6 @@ void OverlayWindow::Draw()
 
 	if (m_bShowMenu && ImGui::Begin("Overlay", nullptr, window_flags))
 	{
-		CVector pos{ 0,0,0 };
-		pos = playerPos;
-
 		static float lastTimer = 0;
 		float timer = (float)ImGui::GetTime();
 		if (timer - lastTimer > 1.0f)
@@ -112,6 +109,7 @@ void OverlayWindow::Draw()
 
 		if (bCoord)
 		{
+			CVector& pos = PLAYER_POS;
 			ImGui::Text("Coord: %.2f, %.2f, %.2f", pos.x, pos.y, pos.z);
 		}
 

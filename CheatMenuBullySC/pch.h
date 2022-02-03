@@ -43,7 +43,7 @@ struct JsonData
 	}
 };
 
-extern CVector& playerPos;
+#define PLAYER_POS *(CVector*)(int((*(int*)0xC2AA68) + 0x30))
 
 static std::ofstream gLog = std::ofstream("CheatMenu.log");
 // why doesn't this work?
