@@ -18,11 +18,11 @@ A CheatMenu for Bully Scholarship Edition. Press <kbd>Left Ctrl</kbd> + <kbd>M</
 ## Images
 <details>
   <summary>Show images</summary>
-  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/1.bmp">
-  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/2.bmp">
-  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/3.bmp">
-  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/4.bmp">
-  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/5.bmp">
-  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/6.bmp">
+  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/1.png">
+  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/2.png">
+  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/3.png">
+  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/4.png">
+  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/5.png">
+  <img src="https://raw.githubusercontent.com/user-grinch/CheatMenuBullySC/rewrite/images/6.png">
 </details>
 
