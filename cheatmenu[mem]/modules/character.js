@@ -2,6 +2,7 @@
 
 class CChar {
     playerControl = true;
+    playerInvulnerable = false;
 
     constructor() {
         if (CChar.self) {
@@ -28,6 +29,10 @@ class CChar {
                 Player.SetControllable(!this.playerControl);
             }
             ImGui.NextColumn();
+            this.playerInvulnerable = ImGui.Checkbox("Player invulnerable", this.playerControl);
+            if (ImGui.IsItemActive("PlayInvul")) {
+                Player.SetInvulnerable(!this.playerInvulnerable);
+            }
             ImGui.Columns(1);
         }
         

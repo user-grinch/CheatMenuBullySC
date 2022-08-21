@@ -10,8 +10,6 @@ A CheatMenu for Bully Scholarship Edition. Press <kbd>Left Ctrl</kbd> + <kbd>M</
 
 ## Installation
 1. Download the latest version of CLEORedux from [here](https://github.com/cleolibrary/CLEO-Redux)
-    - Currently a development version is required which is only available on their discord server 
-    - Be sure to tick the ImGuiRedux plugin on install dialog
 2. Download and place the CheatMenu files inside the CLEO directory
 3. Run the game
 
