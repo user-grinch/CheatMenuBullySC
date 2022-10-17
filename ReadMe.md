@@ -6,8 +6,6 @@
 
 A CheatMenu for Bully Scholarship Edition. Press <kbd>Left Ctrl</kbd> + <kbd>M</kbd> to open the menu. Let me know on discord if you need help with anything and don't forget to star the repo ;)
 
-## Not compatible with ReShade!
-
 [![Discord Banner 2](https://discordapp.com/api/guilds/689515979847237649/widget.png?style=banner2)](https://discord.com/invite/ZzW7kmf)
 
 ## Installation
