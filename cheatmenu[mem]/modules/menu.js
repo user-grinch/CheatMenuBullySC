@@ -19,6 +19,7 @@ class CMenu {
         this.windowSize = [0, 0];
         this.showCoord = false;
         this.showFPS = false;
+        this.showAreaCode = false;
     }
 
     CalcPosition() {
@@ -44,7 +45,7 @@ class CMenu {
     }
 
     DrawOverlay() {
-        if (!(this.showCoord || this.showFPS)) {
+        if (!(this.showCoord || this.showFPS || this.showAreaCode)) {
             return;
         }
 
@@ -58,6 +59,9 @@ class CMenu {
         let sz = ImGui.GetWindowSize("WinodwSXZ");
         this.windowSize = [sz.width, sz.height];
         
+        if (CMenu.self.showAreaCode) {
+            ImGui.Text("Area ID: " + Streaming.GetAreaVisible().toString());
+        }
         if (CMenu.self.showCoord) {
             let coord = Player.GetCoordinates();
             ImGui.Text(`Coord: ${coord.x.toFixed(0)}, ${coord.y.toFixed(0)}, ${coord.z.toFixed(0)}`);
@@ -73,7 +77,7 @@ class CMenu {
         let tab = ImGui.Tabs("MyTab", "Overlay,About");
         ImGui.Spacing();
         ImGui.BeginChild("MyTab");
-        
+
         if (tab == 0)
         {
             ImGui.Spacing();
@@ -82,8 +86,9 @@ class CMenu {
             ImGui.Spacing();
             ImGui.Columns(2);
             CMenu.self.noBG = ImGui.Checkbox("No background", CMenu.self.noBG);
-            CMenu.self.showCoord = ImGui.Checkbox("Show coordinates", CMenu.self.showCoord);
+            CMenu.self.showAreaCode = ImGui.Checkbox("Show area ID", CMenu.self.showAreaCode);
             ImGui.NextColumn();
+            CMenu.self.showCoord = ImGui.Checkbox("Show coordinates", CMenu.self.showCoord);
             CMenu.self.showFPS = ImGui.Checkbox("Show framerate", CMenu.self.showFPS);
             ImGui.Columns(1);
         }

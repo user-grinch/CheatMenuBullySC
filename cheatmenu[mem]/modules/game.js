@@ -31,6 +31,10 @@ class CGame {
                 }
             }
             ImGui.NextColumn();
+            this.stopPedProduction = ImGui.Checkbox("Stop ped production", this.stopPedProduction);
+            if (ImGui.IsItemActive("Stpproduc")) {
+                World.StopPedProduction(this.stopPedProduction)
+            }
             this.wideScreen = ImGui.Checkbox("Widescreen", this.wideScreen);
             if (ImGui.IsItemActive("ClockFrzAct")) {
                 Camera.SetWidescreen(this.wideScreen)

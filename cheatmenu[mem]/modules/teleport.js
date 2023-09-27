@@ -12,8 +12,8 @@ class CTeleport {
     
     SetPlayerPos (text) {
         let coord = text.trim().split(",");
-        Streaming.SetAreaVisible(0);
-        Player.SetCoordinates(coord[0], coord[1], coord[2]);
+        Streaming.SetAreaVisible(coord[0]);
+        Player.SetCoordinates(coord[1], coord[2], coord[3]);
     }
 
     ShowPage() {
@@ -29,7 +29,7 @@ class CTeleport {
             }
             ImGui.SameLine();
             if (ImGui.Button("Teleport to center", sz.x, sz.y)) {
-                CTeleport.self.SetPlayerPos("0, 0, 3");
+                CTeleport.self.SetPlayerPos("0, 0, 0, 3");
             }
         }
         
