@@ -20,6 +20,12 @@ class CMenu {
         this.showCoord = false;
         this.showFPS = false;
         this.showAreaCode = false;
+        this.dllHandle = DynamicLibrary.Load("Shell32.dll");
+    }
+
+    OpenLink(link) {
+        let addr = this.dllHandle.getProcedure("ShellExecuteA");
+        Memory.CallFunction(addr, 6, 0, 0, "open", link, 0, 0, 1)
     }
 
     CalcPosition() {
@@ -98,11 +104,11 @@ class CMenu {
             let sz = ImGui.GetScalingSize("B2sz", 2, true);
         
             if (ImGui.Button("Discord server", sz.x, sz.y)) {
-                //ShellExecute(nullptr, "open", DISCORD_INVITE, nullptr, nullptr, SW_SHOWNORMAL);
+                CMenu.self.OpenLink(DISCORD_INVITE);
             }
             ImGui.SameLine();
             if (ImGui.Button("GitHub", sz.x, sz.y)) {
-                //ShellExecute(nullptr, "open", GITHUB_LINK, nullptr, nullptr, SW_SHOWNORMAL);
+                CMenu.self.OpenLink(GITHUB_LINK);
             }
             ImGui.Spacing();
             ImGui.Columns(2);
@@ -116,10 +122,12 @@ class CMenu {
             ImGui.Dummy(0, 10);
             ImGui.TextWrapped("If you find bugs or have suggestions, let me know on discord.");
             ImGui.Dummy(0, 10);
-            ImGui.TextCentered("Copyright Grinch_ 2022. All rights reserved.");
+            ImGui.TextCentered("Copyright Grinch_ 2024. All rights reserved.");
         }
         ImGui.EndChild();
     }
 }
 
 export var Menu = new CMenu();
+export var DISCORD_INVITE = "https://discord.gg/ZzW7kmf"
+export var GITHUB_LINK = "https://github.com/user-grinch/CheatMenuBullySC"

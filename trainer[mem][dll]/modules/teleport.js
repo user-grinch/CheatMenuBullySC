@@ -12,7 +12,7 @@ class CTeleport {
     
     SetPlayerPos (text) {
         let coord = text.trim().split(",");
-        Streaming.SetAreaVisible(coord[0]);
+        Streaming.SetAreaVisible(parseInt(coord[0]));
         Player.SetCoordinates(coord[1], coord[2], coord[3]);
     }
 

@@ -25,12 +25,12 @@ class CChar {
         if (tab == 0) {
             ImGui.Columns(2);
             this.playerControl = ImGui.Checkbox("Player control", this.playerControl);
-            if (ImGui.IsItemActive("PlayFoc")) {
+            if (ImGui.IsItemClicked("PlayFoc")) {
                 Player.SetControllable(!this.playerControl);
             }
             ImGui.NextColumn();
             this.playerInvulnerable = ImGui.Checkbox("Player invulnerable", this.playerControl);
-            if (ImGui.IsItemActive("PlayInvul")) {
+            if (ImGui.IsItemClicked("PlayInvul")) {
                 Player.SetInvulnerable(!this.playerInvulnerable);
             }
             ImGui.Columns(1);
@@ -39,7 +39,7 @@ class CChar {
         if (tab == 1) {
             if (ImGui.CollapsingHeader("Money##Header")) {
                 let money = ImGui.InputInt("Money", Player.GetMoney(), -9999999, 9999999);
-                if (ImGui.IsItemActive("MoneyFocus")) {
+                if (ImGui.IsItemClicked("MoneyFocus")) {
                     Player.SetMoney(money);
                 }
                 ImGui.Spacing();
@@ -48,7 +48,7 @@ class CChar {
 
             if (ImGui.CollapsingHeader("Health##Header")) {
                 let health = ImGui.InputInt("Health", Player.GetHealth(), 0, 400);
-                if (ImGui.IsItemActive("HltFocus")) {
+                if (ImGui.IsItemClicked("HltFocus")) {
                     Player.SetHealth(health);
                 }
                 ImGui.Spacing();

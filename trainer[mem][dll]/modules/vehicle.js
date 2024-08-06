@@ -34,7 +34,6 @@ class CVehicle {
                             let car = Car.Create(model, coord.x, coord.y, coord.z);
                             coord.z += 1.0;
                             Player.SetCoordinates(coord.x, coord.y, coord.z);
-                            Streaming.ModelNotNeeded(model);
                         }
                     }
                 }

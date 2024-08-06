@@ -12,9 +12,10 @@
 */
 
 HOST === "bully" || exit("This script is only for BullySE");
-import { CheatMenu } from "./modules/cheatmenu"
+import { Trainer } from "./modules/trainer"
 
 while (true) {
+
     wait(0);
-    CheatMenu.Process();
+    Trainer.Process();
 }

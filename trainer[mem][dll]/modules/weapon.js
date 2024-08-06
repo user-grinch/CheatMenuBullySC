@@ -15,7 +15,7 @@ class CWeapon {
         if (tab == 0) {
             ImGui.Columns(2);
             this.unlimitedAmmo = ImGui.Checkbox("Unlimited Ammo", this.unlimitedAmmo);
-            if (ImGui.IsItemActive("Ammounlimite")) {
+            if (ImGui.IsItemClicked("Ammounlimite")) {
                 if (this.unlimitedAmmo){
                     Memory.WriteU32(0x45CA3A, 0x90909090, true);
                     Memory.WriteU32(0x45CA3E, 0x90909090, true);
